@@ -6,7 +6,7 @@
            </router-link>
 
            <router-link :to="{ name: 'SignUp' }">
-               <div class="mx-4 w-20 flex justify-center items-center rounded-lg hover:border-2 border-third cursor-pointer">Register</div>
+               <div class="mx-4 w-20 flex justify-center items-center rounded-lg hover:text-second-text border-third cursor-pointer">Register</div>
            </router-link>
        </div>
     </div>

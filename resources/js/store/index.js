@@ -1,12 +1,16 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
-import userAuth from './modules/userAuth'
+import app from './modules/app'
+import chat from './modules/chat'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        // userAuth,
+        app,
+        chat,
+        user,
     }
 })

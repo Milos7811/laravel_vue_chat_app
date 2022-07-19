@@ -10,5 +10,8 @@ Vue.use(VueRouter)
 let chatApp = new Vue({
     store,
     router,
+    data: {
+        config
+    },
     render: (h) => h(App),
 }).$mount('#app')
