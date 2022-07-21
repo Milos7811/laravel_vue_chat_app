@@ -8,10 +8,8 @@
         <div class="w-full p-2">
 
             <div v-for="chat of chats.data"
-                :key="chat.id"
-                @click="getChat(chat.data.id)"
-                class="flex my-4 cursor-pointer p-2 border-0 rounded-lg "
-                :class="{'bg-five drop-shadow-2xl shadow-lg shadow-five' : currentChat.data.id === chat.data.id  }">
+                :key="chat.data.id"
+                @click="getChat(chat.data.id)">
 
                 <Chat :chat="chat"/>
             </div>
@@ -33,7 +31,7 @@ export default {
         SearchBar,
     },
     computed: {
-        ...mapGetters(['chats', 'currentChat' ]),
+        ...mapGetters([ 'chats' ]),
     },
     data() {
         return {

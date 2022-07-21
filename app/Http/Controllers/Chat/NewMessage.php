@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Chat;
 
+use App\Models\Chat;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use App\Events\NewMessageEvent;
 use App\Http\Controllers\Controller;
-use App\Resources\Message\MessageResource;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ChatNotification;
+use App\Resources\Message\MessageResource;
 
 class NewMessage extends Controller
 {
@@ -16,6 +19,12 @@ class NewMessage extends Controller
 
         checkUserInChat($request);
 
+        $chat = Chat::whereId($request->input('chat_id'))
+            ->with('members')
+            ->first();
+
+        // dd($chat->members);
+
         $message = Message::create([
             'chat_id' => $request->input('chat_id'),
             'user_id' => Auth::id(),
@@ -23,6 +32,11 @@ class NewMessage extends Controller
         ]);
 
 
+        foreach ($chat->members as $member){
+
+            if(Auth::id() != $member->id)
+                NewMessageEvent::dispatch($member->id, $message);
+        }
 
         return new MessageResource($message);
     }

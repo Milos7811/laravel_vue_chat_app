@@ -26,6 +26,12 @@
 
             let config = {
                 authCheck: {{ $authCheck }},
+
+                // Broadcasting
+                broadcasting : '{{ config('broadcasting.connections.pusher.driver') }}',
+                broadcastingKey : '{{ config('broadcasting.connections.pusher.key') }}',
+                broadcastingCluster : '{{ config('broadcasting.connections.pusher.options.cluster') }}'
+
             }
 
         </script>

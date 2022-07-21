@@ -17,13 +17,23 @@ window.axios.defaults.withCredentials = true;
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+import Echo from 'laravel-echo';
 
-// window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: config.broadcastingKey,
+    cluster: config.broadcastingCluster,
+    // wsHost: 'localhost',
+	// wsPort: '8000',
+	// wssPort: '8000',
+    forceTLS: false,
+    // auth:{
+    //     headers: {
+    //         Accept: 'application/json',
+    //         // Authorization: 'Bearer ' + 'NSj5Eg2z0Fbdtahngz0ZFMPwPPigiDnjLbjgIJdh',
+    //         // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+    //     },
+    // },
+});

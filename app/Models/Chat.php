@@ -13,7 +13,7 @@ class Chat extends Model
         'id',
     ];
 
-    public function users()
+    public function members()
     {
         return $this->belongsToMany(User::class)
             ->withPivot('last_readed');

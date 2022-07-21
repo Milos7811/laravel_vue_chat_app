@@ -26,21 +26,40 @@ const actions = {
         })
     },
 
-    getChat: ({commit}, id) => {
-        return new Promise ((resolve, reject) => {
-            axios.
-                get(`api/chat/${id}`)
-                .then((response) => {
-                    commit('CLEAR_MESSAGES')
+    getChat: ({commit, state, dispatch}, id) => {
+        // return new Promise ((resolve, reject) => {
+        //     axios.
+        //         get(`api/chat/${id}`)
+        //         .then((response) => {
+        //             commit('CLEAR_MESSAGES')
 
-                    commit('SET_CURRENT_CHAT', response.data)
+        //             commit('SET_CURRENT_CHAT', response.data)
 
-                    resolve(response.data)
-                })
-                .catch((e) => {
-                    reject(e)
-                })
+        //             resolve(response.data)
+        //         })
+        //         .catch((e) => {
+        //             reject(e)
+        //         })
+        // })
+
+        // Load current open chat
+        state.chats.data.map((el) => {
+            if(el.data.id === id) {
+                commit('SET_CURRENT_CHAT', el)
+            }
         })
+
+        dispatch('updateLastReaded', id)
+
+        // commit('CLEAR_CHAT_NOTIFICATION_DOT')
+    },
+
+    updateLastReaded : ({commit}, id) => {
+        axios.
+            post(`/api/chat/${id}/last-readed`)
+            .then(() => {
+                commit('CLEAR_CHAT_NOTIFICATION_DOT')
+            })
     }
 
 }
@@ -57,6 +76,22 @@ const mutations = {
     },
     PUSH_NEW_MESSAGE(state, data) {
         state.currentChat.data.relationships.messages.push(data)
+    },
+    PUSH_COMMING_MESSAGE(state, data) {
+
+       state.chats.data.map((el) => {
+        if(el.data.id === data.data.attributes.chat_id) {
+
+            el.data.relationships.messages.push(data)
+
+            if(state.currentChat.data.id !== el.data.id) {
+                el.data.attributes.unreadedMessagesCount++
+            }
+        }
+       })
+    },
+    CLEAR_CHAT_NOTIFICATION_DOT(state) {
+        state.currentChat.data.attributes.unreadedMessagesCount = 0
     }
 }
 

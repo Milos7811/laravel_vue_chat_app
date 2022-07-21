@@ -8,11 +8,13 @@ const defaultState = {
 
 const actions = {
 
-    getUser: ({commit}, id) => {
+    getUser: ({commit, dispatch}, id) => {
         axios.
             get('api/user')
             .then((response) => {
                 commit('SET_USER', response.data)
+
+                dispatch('broadcastConnect')
             })
     },
 

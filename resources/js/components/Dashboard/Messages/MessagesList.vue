@@ -6,7 +6,7 @@
         <div class="messages-wrapper">
             <div class="max-h-full flex flex-col-reverse overflow-auto h-full px-10">
                <div class=" flex flex-col">
-                   <div class="mt-auto" v-for="message of currentChat.data.relationships.messages"
+                   <div class="mt-auto" v-for="message of messages"
                        :key="message.data.id">
                        <Message :message="message.data"/>
                    </div>
@@ -37,6 +37,9 @@ export default {
     },
     computed: {
         ...mapGetters(['currentChat', 'user']),
+        messages() {
+            return this.currentChat.data.relationships.messages
+        }
     },
     data () {
         return {

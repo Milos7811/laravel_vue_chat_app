@@ -47,7 +47,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Chat::class)
             ->with('messages')
-            ->with('users');
+            ->with('members');
     }
 
     public function lastReaded()
