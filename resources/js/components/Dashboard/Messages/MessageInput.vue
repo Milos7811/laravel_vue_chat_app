@@ -11,6 +11,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { events } from '../../../bus'
 
 export default {
     name: 'MessageInput',
@@ -30,8 +31,15 @@ export default {
                         this.$store.commit('PUSH_NEW_MESSAGE', response.data)
 
                         this.message = ''
+
+                        this.$store.commit('PUSH_CHAT_TO_TOP', this.currentChat.data.id)
                     })
         }
+    },
+    mounted () {
+        events.$on('message-input:clear', () => {
+            this.message = ''
+        })
     }
 
 }

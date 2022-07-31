@@ -1,11 +1,9 @@
 <template>
     <div class="w-1/3 border-r-2 border-third">
 
-        <Spinner v-if="loading"/>
-
         <SearchBar/>
 
-        <div class="w-full p-2">
+        <div v-if=" chats != undefined" class="w-full p-2">
 
             <div v-for="chat of chats.data"
                 :key="chat.data.id"
@@ -22,6 +20,7 @@ import Spinner from '../../Spinner.vue'
 import Chat from '../../Dashboard/Chats/Chat'
 import SearchBar from './SearchBar.vue'
 import { mapGetters } from 'vuex'
+import { events } from '../../../bus'
 
 export default {
     name: 'ChatsList',
@@ -41,6 +40,8 @@ export default {
     methods: {
         getChat (id) {
             this.$store.dispatch('getChat', id)
+
+            events.$emit('message-input:clear')
         }
     },
     mounted() {

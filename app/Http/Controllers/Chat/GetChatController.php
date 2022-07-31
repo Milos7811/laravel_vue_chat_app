@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Chat;
 
-use App\Resources\Chat\ChatResource;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Resources\Chat\ChatResource;
 use Illuminate\Support\Facades\Auth;
 
 class GetChatController extends Controller

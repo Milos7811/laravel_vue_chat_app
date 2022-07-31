@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class GetUserDataController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke()
     {
-        // dd('aa');
+
         return Auth::user();
     }
 }

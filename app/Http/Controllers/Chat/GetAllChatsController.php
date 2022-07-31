@@ -9,7 +9,7 @@ use App\Resources\Chat\ChatCollection;
 
 class GetAllChatsController extends Controller
 {
-    public function __invoke()
+    public function __invoke() : ChatCollection
     {
         $user = Auth::user();
 

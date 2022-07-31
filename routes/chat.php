@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Chat\NewMessageController;
+use App\Http\Controllers\Chat\GetChatController;
+use App\Http\Controllers\Chat\NewChatController;
+use App\Http\Controllers\Chat\UpdateLastReadedChatController;
 use App\Http\Controllers\Chat\GetAllChatsController;
-use App\Http\Controllers\Chat\NewMessage;
-use App\Http\Controllers\Chat\UpdateLastReadedChat;
-use App\Http\Controllers\GetChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\GetChatController;
 
 Route::get('/', GetAllChatsController::class);
 Route::get('/{id}', GetChatController::class);
-Route::post('/new-message', NewMessage::class);
-Route::post('/{id}/last-readed', UpdateLastReadedChat::class );
+Route::post('/new-message', NewMessageController::class);
+Route::post('/{id}/last-readed', UpdateLastReadedChatController::class );
+Route::post('create-new', NewChatController::class);
 

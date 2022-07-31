@@ -2,9 +2,8 @@
 
 use App\Models\Chat;
 use Illuminate\Support\Carbon;
-use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 
 if (! function_exists('checkUserInChat')) {
     /**
@@ -33,21 +32,25 @@ if (! function_exists('checkUserInChat')) {
 
 if (! function_exists('unreadedMessagesCount')) {
     /**
-     * Counting unread messages
+     * Counting unreaded messages
      */
+    function unreadedMessagesCount (
+        Collection $members,
+        Collection $messages,
+    ) : Int {
 
-    function unreadedMessagesCount ($members, $messages) {
         $user = null;
         $unreadedMessages = [];
 
+        // Get current user from the members to get date of last read messages
         foreach($members as $member) {
             if($member->id === Auth::id()) {
                 $user = $member;
             }
         }
 
+        // Get count of the don't read messages
         foreach($messages as $message) {
-
             // Format times to same format
             $messageTime = $message->created_at->format('H:i:s d.m.Y');
             $lastReaded = Carbon::createFromFormat('Y-m-d H:i:s',  $user->pivot->last_readed)->format('H:i:s d-m-Y');
@@ -56,6 +59,7 @@ if (! function_exists('unreadedMessagesCount')) {
                 array_push($unreadedMessages, $message);
             }
         }
+
         // Return count of unreaded messages
         return count($unreadedMessages);
     }

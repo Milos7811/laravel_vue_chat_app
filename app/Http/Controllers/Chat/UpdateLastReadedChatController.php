@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Chat;
 
 use App\Models\ChatUser;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateLastReadedChat extends Controller
+class UpdateLastReadedChatController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke() : Response
     {
-        ChatUser::where('chat_id', $request->route('id'))
+        ChatUser::where('chat_id', request()->route('id'))
             ->where('user_id', Auth::id())
             ->update(['last_readed' => Carbon::now()]);
 

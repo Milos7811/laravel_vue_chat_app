@@ -1,7 +1,7 @@
 <template>
     <div
         class="flex my-4 cursor-pointer p-2 border-0 rounded-lg relative"
-        :class="{'bg-five drop-shadow-2xl shadow-lg shadow-five' : currentChat.data.id === chat.data.id  }">
+        :class="{'bg-five drop-shadow-2xl shadow-lg shadow-five' : currentChat.data.id === chat.data.id, 'font-bold' : dotActive  }">
 
         <!-- Notification dot -->
         <div v-if="dotActive"
@@ -21,7 +21,9 @@
                         {{ `${member.data.attributes.name}` }}
                     </div>
                 </div>
-                <div class="cursor-pointer">Message</div>
+                <div v-if="chat.data.relationships.messages.length > 0" class="cursor-pointer">
+                    {{ chat.data.relationships.messages[chat.data.relationships.messages.length -1].data.attributes.message}}
+                </div>
             </div>
         </div>
 

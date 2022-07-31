@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Resources\User\UserCollection;
 
 class SearchUsersController extends Controller
 {
-    public function __invoke()
+    public function __invoke() : UserCollection
     {
-        // dd(request());
-        dd($users = User::search(request()->input('query')));
+        $users = User::where('name', 'LIKE', '%'. request()->route('query') .'%')
+            ->get();
+
+        return new UserCollection($users);
     }
 }

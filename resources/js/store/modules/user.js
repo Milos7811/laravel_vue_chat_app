@@ -4,6 +4,7 @@ import router from '../../router'
 const defaultState = {
     user: undefined,
     authCheck: false,
+    searchedUsers: [],
 }
 
 const actions = {
@@ -18,12 +19,16 @@ const actions = {
             })
     },
 
-    searchUsers: ({commit, state}, query) => {
-        axios.
-            get(`/api/user/${query}`)
-            .then((response) => {
-                console.log(response.data)
-            })
+    searchUsers: ({commit}, query) => {
+        return new Promise ((resolve, reject) => {
+            axios.
+                get(`/api/user/${query}`)
+                .then((response) => {
+                    commit('SET_SEARCHED_USERS', response.data)
+
+                    resolve(true)
+                })
+        })
     },
 
     logOut: () => {
@@ -42,12 +47,18 @@ const mutations = {
     },
     SET_AUTH (state, data) {
         state.authCheck = data
+    },
+    SET_SEARCHED_USERS(state, data) {
+        state.searchedUsers = []
+
+        state.searchedUsers = data.data
     }
 }
 
 const getters = {
     user: (state) => state.user,
     authCheck: (state) => state.authCheck,
+    searchedUsers: (state) => state.searchedUsers,
 }
 
 export default {

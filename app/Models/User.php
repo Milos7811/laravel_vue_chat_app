@@ -43,11 +43,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $searchable = [
+        'name'
+    ];
+
     public function chats()
     {
         return $this->belongsToMany(Chat::class)
             ->with('messages')
-            ->with('members');
+            ->with('members')
+            ->orderBy('updated_at', 'DESC');
     }
 
     public function lastReaded()

@@ -18,7 +18,8 @@ class ChatResource extends JsonResource
                 'type' => 'chat',
 
                 'attributes' => [
-                    'unreadedMessagesCount' => unreadedMessagesCount($this->members, $this->messages),
+                    'unreadedMessagesCount' => $this->broadcast ? 1 : unreadedMessagesCount($this->members, $this->messages),
+                    'updated_at' => $this->updated_at->format('H:i:s d.m.Y')
                 ],
 
                 'relationships' => [

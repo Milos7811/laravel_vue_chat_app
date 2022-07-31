@@ -1,8 +1,9 @@
 import axios from 'axios'
+import _ from 'lodash'
 import Vue from 'vue'
 
 const defaultState = {
-    chats: [],
+    chats: undefined,
     currentChat: undefined,
 }
 
@@ -17,6 +18,8 @@ const actions = {
                     commit('SET_CHAT', response.data)
 
                     commit('SET_CURRENT_CHAT', response.data.data[0])
+
+                    commit('SET_LOADED_TRUE')
 
                     resolve(response.data)
                 })
@@ -52,6 +55,19 @@ const actions = {
         dispatch('updateLastReaded', id)
 
         // commit('CLEAR_CHAT_NOTIFICATION_DOT')
+    },
+
+    createNewChat : ({commit},ids) => {
+        axios.
+            post('/api/chat/create-new',{
+                usersId : [ids],
+                message: 'Cavelooo'
+            })
+            .then((response) => {
+                commit('PUSH_NEW_CHAT', response.data)
+
+                commit('SET_CURRENT_CHAT', response.data)
+            })
     },
 
     updateLastReaded : ({commit}, id) => {
@@ -90,8 +106,20 @@ const mutations = {
         }
        })
     },
+    PUSH_NEW_CHAT(state, data) {
+        state.chats.data.unshift(data)
+    },
     CLEAR_CHAT_NOTIFICATION_DOT(state) {
         state.currentChat.data.attributes.unreadedMessagesCount = 0
+    },
+    PUSH_CHAT_TO_TOP(state, id) {
+        let index =_.findIndex(state.chats.data, function(chat) {return chat.data.id === id})
+
+        console.log(index, id)
+
+        if(index != 0) {
+            state.chats.data.move(index, 0)
+        }
     }
 }
 

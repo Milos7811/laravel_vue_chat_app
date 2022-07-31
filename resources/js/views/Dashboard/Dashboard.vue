@@ -1,10 +1,13 @@
 <template>
-    <div class="flex relative">
-        <LogoutButton/>
-        <ChatsList/>
-        <MessagesList v-if="currentChat != undefined"/>
+    <div>
+        <div v-show="loaded" class="flex relative">
+            <LogoutButton/>
+            <ChatsList/>
+            <MessagesList v-if="currentChat != undefined"/>
+        </div>
 
         <!-- <Notification/> -->
+        <Spinner v-if="!loaded"/>
     </div>
 </template>
 
@@ -13,6 +16,7 @@ import MessagesList from '../../components/Dashboard/Messages/MessagesList'
 import ChatsList from '../../components/Dashboard/Chats/ChatsList'
 import LogoutButton from '../../components/Others/LogoutButton'
 import Notification from '../../components/Notification/Notification';
+import Spinner from '../../components/Spinner.vue'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -21,10 +25,11 @@ export default {
     ChatsList,
     MessagesList,
     LogoutButton,
-    Notification
+    Notification,
+    Spinner
 },
     computed: {
-        ...mapGetters(['config', 'currentChat'])
+        ...mapGetters(['loaded','config', 'currentChat'])
     },
     created () {
         this.$store.dispatch('getUser')
