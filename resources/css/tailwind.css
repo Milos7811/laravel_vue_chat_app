@@ -5,3 +5,7 @@
 .input:focus {
     outline: none !important;
 }
+
+a, li {
+    text-decoration: none !important;
+}

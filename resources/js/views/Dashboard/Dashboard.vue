@@ -1,9 +1,11 @@
 <template>
     <div>
-        <div v-show="loaded" class="flex relative">
+        <div v-show="loaded" class="flex relative bg-light text-light-text">
             <LogoutButton/>
             <ChatsList/>
             <MessagesList v-if="currentChat != undefined"/>
+
+            <NewMessagePopup/>
         </div>
 
         <!-- <Notification/> -->
@@ -16,7 +18,8 @@ import MessagesList from '../../components/Dashboard/Messages/MessagesList'
 import ChatsList from '../../components/Dashboard/Chats/ChatsList'
 import LogoutButton from '../../components/Others/LogoutButton'
 import Notification from '../../components/Notification/Notification';
-import Spinner from '../../components/Spinner.vue'
+import Spinner from '../../components/Spinner'
+import NewMessagePopup from '../../components/Popup/NewMessagePopup';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -26,6 +29,7 @@ export default {
     MessagesList,
     LogoutButton,
     Notification,
+    NewMessagePopup,
     Spinner
 },
     computed: {

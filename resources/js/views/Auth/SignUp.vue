@@ -1,35 +1,42 @@
 <template>
-    <form autocomplete="off" class="flex flex-col justify-center items-end h-screen w-2/4 m-auto ">
+    <form autocomplete="off" class="flex flex-col justify-center items-end h-screen m-auto">
 
-        <div class="mx-auto mb-2 md:flex md:max-w-lg md:items-center ">
-            <label for="name" class="mb-1.5 block font-bold md:mb-0 md:w-72 md:pr-4 md:text-right">Name:</label>
-            <div class="border-1 my-3 rounded-lg w-80 h-12 px-4 bg-third">
-                <input v-model="form.name" type="text" class=" w-full h-full input bg-third"/>
+        <div class="mx-auto">
+            <div class="flex flex-col items-end">
+
+                <div class="mb-2 flex flex-row items-center">
+                    <label for="name" class="mr-4 text-xl">Name:</label>
+                    <div class="border-2 my-3 rounded-lg w-80 h-12 px-4 border-theme">
+                        <input v-model="form.name" type="text" class=" w-full h-full input "/>
+                    </div>
+                </div>
+
+                 <div class="mb-2 flex flex-row items-center">
+                    <label for="email" class="mr-4 text-xl">Email:</label>
+                    <div class="border-2 my-3 rounded-lg w-80 h-12 px-4 border-theme">
+                        <input v-model="form.email" type="email" class="w-full h-full input"/>
+                    </div>
+                </div>
+
+                <div class="mb-2 flex flex-row items-center">
+                    <label for="password" class="mr-4 text-xl">Password:</label>
+                    <div class="border-2 my-3 rounded-lg w-80 h-12 px-4 border-theme">
+                        <input v-model="form.password" type="password" class="w-full h-full input"/>
+                    </div>
+                </div>
+
+                <div class="mb-2 flex flex-row items-center">
+                    <label for="password" class="mr-4 text-xl">Confim Password</label>
+                    <div class="border-2 my-3 rounded-lg w-80 h-12 px-4 border-theme">
+                        <input v-model="form.password_confirmation" type="password" class="w-full h-full input"/>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-         <div class="mx-auto mb-2 md:flex md:max-w-lg md:items-center">
-            <label for="email" class="mb-1.5 block font-bold md:mb-0 md:w-72 md:pr-4 md:text-right">Email:</label>
-            <div class="border-1 my-3 rounded-lg w-80 h-12 px-4 bg-third">
-                <input v-model="form.email" type="email" class="w-full h-full input autofill:!bg-third"/>
-            </div>
-        </div>
 
-        <div class="mx-auto mb-2 md:flex md:max-w-lg md:items-center">
-            <label for="password" class="mb-1.5 block font-bold md:mb-0 md:w-72 md:pr-4 md:text-right">Password:</label>
-            <div class="border-1 my-3 rounded-lg w-80 h-12 px-4 bg-third">
-                <input v-model="form.password" type="password" class="w-full h-full input bg-third"/>
-            </div>
-        </div>
-
-        <div class="mx-auto mb-2 md:flex md:max-w-lg md:items-center">
-            <label for="password" class="mb-1.5 block font-bold md:mb-0 md:w-72 md:pr-4 md:text-right">Confim Password</label>
-            <div class="border-1 my-3 rounded-lg w-80 h-12 px-4 bg-third">
-                <input v-model="form.password_confirmation" type="password" class="w-full h-full input bg-third"/>
-            </div>
-        </div>
-
-        <Button @click.native="register" class="mx-auto mt-20">Register</Button>
+        <Button @click.native="register" class="mx-auto mt-20 bg-theme-second">Register</Button>
     </form>
 </template>
 

@@ -1,12 +1,12 @@
 <template>
     <div class="m-4 flex flex-row items-center"
         :class="{'justify-end' : isUserMessage }">
-        <div v-if="!isUserMessage" class="w-10 h-10 bg-third border rounded-full mr-2">
+        <div v-if="!isUserMessage" class="w-10 h-10 bg-theme border rounded-full mr-2">
 
         </div>
 
         <div class="border-0 rounded-lg p-3 shadow-xl"
-            :class="{'bg-five' : isUserMessage }">
+            :class="{'bg-theme-second' : isUserMessage }">
             <!-- <h1 v-if="!isUserMessage"> {{ message.relationships.owner.attributes.name}} </h1> -->
             <h2> {{ message.attributes.message }}</h2>
         </div>

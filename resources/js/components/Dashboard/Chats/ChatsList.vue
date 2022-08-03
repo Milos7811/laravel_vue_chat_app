@@ -1,5 +1,5 @@
 <template>
-    <div class="w-1/3 border-r-2 border-third">
+    <div class="w-1/3 border-r-2 border-theme bg-light-second">
 
         <SearchBar/>
 

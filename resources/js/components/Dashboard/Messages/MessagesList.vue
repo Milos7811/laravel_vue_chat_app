@@ -23,7 +23,7 @@
 
 <script>
 import MessageInput from './MessageInput';
-import MessageHeader from './MessageHeader.vue'
+import MessageHeader from './MessageHeader'
 import { mapGetters } from 'vuex';
 import { events } from '../../../bus'
 import Message from './Message'

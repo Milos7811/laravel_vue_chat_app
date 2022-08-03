@@ -24,8 +24,8 @@ class NewMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'chat_id' => 'required|id',
-            'message' => 'required|text'
+            'chat_id' => 'required',
+            'message' => 'required|string'
         ];
     }
 }

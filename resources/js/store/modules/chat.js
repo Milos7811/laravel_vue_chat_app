@@ -57,11 +57,11 @@ const actions = {
         // commit('CLEAR_CHAT_NOTIFICATION_DOT')
     },
 
-    createNewChat : ({commit},ids) => {
+    createNewChat : ({commit}, data) => {
         axios.
             post('/api/chat/create-new',{
-                usersId : [ids],
-                message: 'Cavelooo'
+                usersId : data.usersId,
+                message: data.message
             })
             .then((response) => {
                 commit('PUSH_NEW_CHAT', response.data)
@@ -114,8 +114,6 @@ const mutations = {
     },
     PUSH_CHAT_TO_TOP(state, id) {
         let index =_.findIndex(state.chats.data, function(chat) {return chat.data.id === id})
-
-        console.log(index, id)
 
         if(index != 0) {
             state.chats.data.move(index, 0)

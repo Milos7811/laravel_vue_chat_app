@@ -1,18 +1,18 @@
 <template>
     <div
         class="flex my-4 cursor-pointer p-2 border-0 rounded-lg relative"
-        :class="{'bg-five drop-shadow-2xl shadow-lg shadow-five' : currentChat.data.id === chat.data.id, 'font-bold' : dotActive  }">
+        :class="{'bg-theme-second drop-shadow-2xl shadow-lg shadow-theme-second' : currentChat.data.id === chat.data.id, 'font-bold' : dotActive  }">
 
         <!-- Notification dot -->
         <div v-if="dotActive"
-            class="notification-dot w-5 h-5 border-0 rounded-full bg-third animate-pulse absolute flex justify-center items-center">
+            class="notification-dot w-5 h-5 border-0 rounded-full bg-theme animate-pulse absolute flex justify-center items-center">
             <div>{{ this.chat.data.attributes.unreadedMessagesCount }}</div>
         </div>
 
         <div class="flex flex-row items-center">
 
 
-            <div class="w-10 h-10 bg-third border rounded-full mr-3"></div>
+            <div class="w-10 h-10 bg-theme border rounded-full mr-3"></div>
 
             <div class="flex flex-col">
 
