@@ -9,7 +9,7 @@
                     <h1> {{ user.data.attributes.name}}</h1>
                 </div>
 
-                <MessageInput message-type="new-chat"/>
+                <MessageInput message-type="new-chat" :user-id="user.data.id"/>
             </div>
         </PopupContent>
 
@@ -18,9 +18,9 @@
                 Cancel
             </ButtonCustom>
 
-            <ButtonCustom @click.native="createChat" button-style="accept" :loading="loading">
+            <!-- <ButtonCustom @click.native="createChat" button-style="accept" :loading="loading">
                 Send
-            </ButtonCustom>
+            </ButtonCustom> -->
         </PopupAction>
     </PopupWrapper>
 </template>
@@ -35,7 +35,7 @@ import ButtonCustom from '../Others/ButtonCustom'
 import { events } from '../../bus'
 
 export default {
-    name: 'NewMessagePopup',
+    name: 'NewChatPopup',
     components: {
     PopupWrapper,
     PopupHeader,
@@ -51,9 +51,9 @@ export default {
         }
     },
     methods: {
-        createChat () {
-            events.$emit('new-chat:create', this.user.data.id)
-        },
+        // createChat () {
+        //     events.$emit('new-chat:create', this.user.data.id)
+        // },
         closePopup() {
             events.$emit('popup:close')
         }

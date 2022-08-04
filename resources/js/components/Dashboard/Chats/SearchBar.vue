@@ -1,29 +1,38 @@
 <template>
-    <div class="search-bar bg-theme">
-        <div class="h-full flex justify-center items-center relative">
+    <div class="h-[50px] flex justify-center items-center ml-4 bg-light-second">
 
-            <div  class="w-2/3 p-2 bg-white border-0 rounded-lg">
-                <input v-model="query"
-                   @input="searchUser"
-                    class="w-full">
-            </div>
+        <div class="w-full flex">
+            <div class="w-full bg-white border-2 border-transparent rounded-lg relative focus-within:border-theme ">
+                <div class="p-2">
+                    <input v-model="query"
+                        @input="searchUser"
+                        placeholder="Search Users"
+                        class="w-full">
+                </div>
 
-             <UsersIcon title="test" class="ml-4 cursor-pointer hover:stroke-theme-second"/>
-
-            <div v-if="dropDown" class="dropdown-searchbar bg-white absolute w-2/3 h-atuo border-0 rounded-lg z-10">
-                <!-- <Spinner class="spinner"/> -->
-
-                <div class="w-full h-full">
-                    <div v-for="user of searchedUsers" :key="user.data.id">
-                        <div class="w-full h-12 mb-2 flex items-center">
-                            <div class="w-10 h-10 bg-theme border rounded-full mr-1"></div>
-                            <h1> {{ user.data.attributes.name}} </h1>
-                            <MessageSquareIcon @click="chat(user)"
-                                class="message-icon cursor-pointer"
-                                size="1.3x"  />
+                <!-- Dropdown -->
+                <div @click.stop v-if="dropDown" class="bg-white shadow-xl absolute w-full h-atuo border-0 rounded-lg z-20 top-[50px]">
+                    <div class="w-full h-full">
+                        <div v-for="user of searchedUsers" :key="user.data.id" class="cursor-pointer">
+                            <div class="flex justify-between items-center p-2">
+                                <div class="w-full h-12 flex items-center">
+                                    <div class="w-10 h-10 bg-theme border rounded-full mr-2"></div>
+                                    <h1 class="hover:text-theme hover:font-bold"> {{ user.data.attributes.name}} </h1>
+                                </div>
+                                <MessageSquareIcon @click="chat(user)"
+                                    class="cursor-pointer stroke-2 hover:stroke-theme-second"
+                                    size="1.3x"  />
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Close Dropdwon after click outside box -->
+            <div v-if="dropDown" @click="closeDropdown" class="fixed top-0 left-0 right-0 bottom-0 z-9 cursor-pointer"></div>
+
+            <div class="flex justify-center items-center mx-3">
+                <UsersIcon title="test" class=" cursor-pointer hover:stroke-theme-second"/>
             </div>
         </div>
     </div>
@@ -48,17 +57,24 @@ export default {
     data () {
         return {
             loaded:false,
-            dropDown: true,
+            dropDown: false,
             query: '',
         }
     },
     methods: {
+        closeDropdown() {
+            this.dropDown = false
+
+            this.query = ''
+        },
         searchUser () {
             this.$store.dispatch('searchUsers', this.query).then(() => {
                 this.dropDown = true
             })
         },
         chat(user) {
+
+            this.closeDropdown()
 
             let createNewChat = true
 
@@ -89,13 +105,4 @@ export default {
 
 <style lang="scss" scoped>
 
-.search-bar {
-    height: 5%;
-    .dropdown-searchbar  {
-        top: 50px;
-    }
-}
-.message-icon {
-    stroke-width: 1;
-}
 </style>

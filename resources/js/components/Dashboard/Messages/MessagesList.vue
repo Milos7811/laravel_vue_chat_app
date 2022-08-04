@@ -1,9 +1,9 @@
 <template>
-    <div class="w-2/3 h-screen">
+    <div class="w-2/3 h-screen flex flex-col">
 
-        <MessageHeader class="header"/>
+        <MessageHeader/>
 
-        <div class="messages-wrapper">
+        <div class="flex-auto overflow-auto">
             <div class="max-h-full flex flex-col-reverse overflow-auto h-full px-10">
                <div class=" flex flex-col">
                    <div class="mt-auto" v-for="message of messages"
@@ -14,9 +14,7 @@
            </div>
         </div>
 
-        <div class="input-wrapper">
-            <MessageInput/>
-        </div>
+        <MessageInput/>
 
     </div>
 </template>
@@ -25,7 +23,6 @@
 import MessageInput from './MessageInput';
 import MessageHeader from './MessageHeader'
 import { mapGetters } from 'vuex';
-import { events } from '../../../bus'
 import Message from './Message'
 
 export default {
@@ -51,16 +48,5 @@ export default {
 
 <style lang="scss" scoped>
 
-.messages-wrapper {
-    height: 88%;
-}
-
-.input-wrapper {
-    height: 7%;
-}
-
-.header {
-    height: 5%;
-}
 
 </style>

@@ -5,7 +5,7 @@
             <ChatsList/>
             <MessagesList v-if="currentChat != undefined"/>
 
-            <NewMessagePopup/>
+            <NewChatPopup/>
         </div>
 
         <!-- <Notification/> -->
@@ -19,7 +19,7 @@ import ChatsList from '../../components/Dashboard/Chats/ChatsList'
 import LogoutButton from '../../components/Others/LogoutButton'
 import Notification from '../../components/Notification/Notification';
 import Spinner from '../../components/Spinner'
-import NewMessagePopup from '../../components/Popup/NewMessagePopup';
+import NewChatPopup from '../../components/Popup/NewChatPopup';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -29,7 +29,7 @@ export default {
     MessagesList,
     LogoutButton,
     Notification,
-    NewMessagePopup,
+    NewChatPopup,
     Spinner
 },
     computed: {

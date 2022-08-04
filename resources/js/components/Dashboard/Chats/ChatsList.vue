@@ -1,17 +1,27 @@
 <template>
-    <div class="w-1/3 border-r-2 border-theme bg-light-second">
+    <div class="w-1/3 bg-light-second">
 
-        <SearchBar/>
+        <div class=" h-[50px] flex justify-start items-center ml-2">
+             <div class="w-10 h-10 bg-theme border rounded-full mr-3"></div>
+             <div v-if="user">
+                 {{ user.name}}
+             </div>
+        </div>
 
-        <div v-if=" chats != undefined" class="w-full p-2">
+        <div class=" bg-light-second mt-4">
+            <SearchBar/>
 
-            <div v-for="chat of chats.data"
-                :key="chat.data.id"
-                @click="getChat(chat.data.id)">
+            <div v-if=" chats != undefined" class="w-full p-2">
 
-                <Chat :chat="chat"/>
+                <div v-for="chat of chats.data"
+                    :key="chat.data.id"
+                    @click="getChat(chat.data.id)">
+
+                    <Chat :chat="chat"/>
+                </div>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -30,7 +40,7 @@ export default {
         SearchBar,
     },
     computed: {
-        ...mapGetters([ 'chats' ]),
+        ...mapGetters([ 'chats' , 'user' ]),
     },
     data() {
         return {

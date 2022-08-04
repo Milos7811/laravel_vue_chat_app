@@ -20,6 +20,7 @@ module.exports = {
             backgroundColor: theme => ({
                 'light' : '#ffffff',
                 'light-second' : '#e7e7e7',
+                'light-fg' : '#a1a1a1',
                 'dark-bg' : '#171717',
                 'dark-bg-second' : '#202124',
                 'dark-fg' : '#303134',

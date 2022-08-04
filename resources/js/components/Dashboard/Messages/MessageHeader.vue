@@ -1,8 +1,13 @@
 <template>
-    <div class="bg-theme flex px-4">
+    <div class="min-h-[50px] bg-theme flex px-4">
         <div class="flex flex-row justify-start items-center">
-             <div class="w-10 h-10 bg-theme border rounded-full mr-3"></div>
-            <div> {{currentChat.data.relationships.members[0].data.attributes.name}} </div>
+            <div class="w-10 h-10 bg-theme border rounded-full mr-3"></div>
+            <div v-for="member of currentChat.data.relationships.members" :key="member.data.id">
+                <div v-if="member.data.id != user.id">
+                    {{ member.data.attributes.name }}
+                </div>
+            </div>
+            <!-- <div> {{currentChat.data.relationships.members[0].data.attributes.name}} </div> -->
         </div>
     </div>
 </template>
@@ -13,7 +18,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'MessageHeader',
     computed: {
-        ...mapGetters([ 'currentChat' ])
+        ...mapGetters([ 'currentChat' , 'user'])
     },
 
 }

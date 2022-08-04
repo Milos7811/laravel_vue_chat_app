@@ -1,21 +1,24 @@
 <template>
-    <div class=" h-[60px] flex justify-center flex items-center">
-        <div class="px-4 bg-theme border-0 rounded-lg w-3/4 h-3/4">
+    <div class=" min-h-[65px] flex justify-center flex items-center py-2 ">
+        <div class="pl-4 pr-2 bg-light border-[1px] rounded-lg border-theme w-3/4 h-[35px] flex flex-row items-center">
             <input v-model="message"
                 @keypress.enter="send"
-                class=" w-full h-full input bg-theme text-light-text"/>
+                placeholder="Type your message here..."
+                class=" w-full h-full input bg-light text-light-text "/>
+            <SendIcon @click="send" class="ml-2 cursor-pointer hover:stroke-theme"/>
         </div>
-        <!-- <button @click="newMessage">Butt</button> -->
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { events } from '../../../bus'
+import { SendIcon } from 'vue-feather-icons'
 
 export default {
     name: 'MessageInput',
-    props: ['messageType'],
+    props: ['messageType', 'userId'],
+    components: { SendIcon },
     computed: {
         ...mapGetters([ 'currentChat' ])
     },
@@ -26,8 +29,11 @@ export default {
     },
     methods: {
         send () {
-            if(this.messageType !== 'new-chat')
-                this.newMessage
+            if(this.messageType !== 'new-chat') {
+                this.newMessage()
+            } else {
+                this.newChat()
+            }
         },
         newMessage () {
             axios.
@@ -40,8 +46,8 @@ export default {
                         this.$store.commit('PUSH_CHAT_TO_TOP', this.currentChat.data.id)
                     })
         },
-        newChat (userId) {
-            this.$store.dispatch('createNewChat', {message: this.message, usersId: [userId]})
+        newChat () {
+            this.$store.dispatch('createNewChat', {message: this.message, usersId: [this.userId]})
 
             events.$emit('popup:close')
         }
@@ -51,11 +57,11 @@ export default {
             this.message = ''
         })
 
-        if(this.messageType === 'new-chat') {
-            events.$on('new-chat:create', (userId) => {
-                this.newChat(userId)
-            })
-        }
+        // if(this.messageType === 'new-chat') {
+        //     events.$on('new-chat:create', (userId) => {
+        //         this.newChat(userId)
+        //     })
+        // }
     },
     beforeDestroy () {
         events.$off('new-chat:create')
