@@ -14,10 +14,12 @@ const actions = {
             axios.
                 get('/api/chat')
                 .then((response) => {
-
                     commit('SET_CHAT', response.data)
 
                     commit('SET_CURRENT_CHAT', response.data.data[0])
+
+                    // Remove unreaded messages from current opened chat
+                    commit('REMOVE_UNREADED_MESSAGES')
 
                     commit('SET_LOADED_TRUE')
 
@@ -54,7 +56,7 @@ const actions = {
 
         dispatch('updateLastReaded', id)
 
-        // commit('CLEAR_CHAT_NOTIFICATION_DOT')
+        // commit('REMOVE_UNREADED_MESSAGES')
     },
 
     createNewChat : ({commit}, data) => {
@@ -74,7 +76,7 @@ const actions = {
         axios.
             post(`/api/chat/${id}/last-readed`)
             .then(() => {
-                commit('CLEAR_CHAT_NOTIFICATION_DOT')
+                commit('REMOVE_UNREADED_MESSAGES')
             })
     }
 
@@ -109,7 +111,7 @@ const mutations = {
     PUSH_NEW_CHAT(state, data) {
         state.chats.data.unshift(data)
     },
-    CLEAR_CHAT_NOTIFICATION_DOT(state) {
+    REMOVE_UNREADED_MESSAGES(state) {
         state.currentChat.data.attributes.unreadedMessagesCount = 0
     },
     PUSH_CHAT_TO_TOP(state, id) {

@@ -6,7 +6,7 @@
 
             <!-- Notification dot -->
             <div v-if="dotActive"
-                class="notification-dot w-5 h-5 border-0 rounded-full bg-theme animate-pulse absolute flex justify-center items-center">
+                class="notification-dot w-5 h-5 border-0 rounded-full bg-theme-second animate-pulse absolute flex justify-center items-center">
                 <div>{{ this.chat.data.attributes.unreadedMessagesCount }}</div>
             </div>
 
@@ -45,13 +45,6 @@ export default {
             return this.chat.data.attributes.unreadedMessagesCount > 0 &&
                 this.currentChat.data.id !== this.chat.data.id
         },
-        // checkLastRead() {
-        //     this.currentChat.data.relationships.members.map((user) => {
-        //         if(user.data.id === this.user.id) {
-        //             user.data.attributes.lastReaded >
-        //         }
-        //     })
-        // }
     },
 
 }

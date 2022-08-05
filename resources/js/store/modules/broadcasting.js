@@ -4,7 +4,7 @@ const defaultState = {
 }
 
 const actions = {
-    broadcastConnect : ({commit, getters}) => {
+    broadcastConnect : ({commit, dispatch, getters}) => {
         Echo.private(`App.Models.User.${getters.user.id}`)
         .listen('.message', (response) => {
 
@@ -12,10 +12,18 @@ const actions = {
 
             commit('PUSH_CHAT_TO_TOP', response.data.attributes.chat_id)
 
+            dispatch('messageSound')
+
         })
         .listen('.new-chat', (response) => {
             commit('PUSH_NEW_CHAT', response)
+
+            dispatch('messageSound')
+
         })
+    },
+    messageSound : () => {
+        new Audio('/audio/message_voice.mp3').play()
     }
 }
 
