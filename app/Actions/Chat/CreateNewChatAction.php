@@ -31,7 +31,7 @@ class CreateNewChatAction
         }
 
         // Remove current user from the array for send the event
-        array_splice($usersId, Auth::id());
+        unset($usersId[array_search(Auth::id(), $usersId)]);
 
         // Push new chat for users
         NewChatEvent::dispatch($usersId, $chat);

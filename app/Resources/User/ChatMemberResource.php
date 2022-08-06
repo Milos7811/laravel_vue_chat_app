@@ -13,8 +13,9 @@ class ChatMemberResource extends JsonResource
                 'id'         => $this->id,
                 'type'       => 'user',
                 'attributes' => [
-                    'name' => $this->name,
-                    'email' => $this->email,
+                    'name'       => $this->name,
+                    'email'      => $this->email,
+                    'avatar'     => $this->avatar,
                     'lastReaded' => $this->whenPivotLoaded('chat_user', function () {
                         return $this->pivot->last_readed;
                     }),

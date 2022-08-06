@@ -14,9 +14,9 @@ class CreateMessagesTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('chat_id');
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('id')->primary()->index();
+            $table->uuid('chat_id');
+            $table->uuid('user_id');
             $table->foreign('chat_id')->references('id')->on('chats');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('message');

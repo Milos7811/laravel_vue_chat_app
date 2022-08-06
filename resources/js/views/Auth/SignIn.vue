@@ -30,7 +30,7 @@ export default {
     data () {
         return {
             form: {
-                email: 'test@test.com',
+                email: 'milosholba78@gmail.com',
                 password: '12345678',
             }
         }

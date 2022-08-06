@@ -37,7 +37,7 @@ if (! function_exists('unreadedMessagesCount')) {
     function unreadedMessagesCount (
         Collection $members,
         Collection $messages,
-    ) : Int {
+    ) : String {
 
         $user = null;
         $unreadedMessages = [];
@@ -62,5 +62,21 @@ if (! function_exists('unreadedMessagesCount')) {
 
         // Return count of unreaded messages
         return count($unreadedMessages);
+    }
+}
+
+if(! function_exists('storeAvatar')) {
+     /**
+     * Check if is user member of chat
+     */
+    function storeAvatar()
+    {
+
+        //   // Generate avatar name
+        //   $avatar_name = Str::uuid() . '.' . $image->getClientOriginalExtension();
+
+        //   // Create intervention image
+        //   $intervention = Image::make($image->getRealPath());
+
     }
 }

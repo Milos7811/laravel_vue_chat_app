@@ -31,6 +31,34 @@ const actions = {
         })
     },
 
+    uploadAvatar: ({}, event) => {
+
+        let data = new FormData()
+
+        let avatar = event.target.files[0]
+
+        // Add image to form
+        data.append('avatar', avatar)
+
+        // axios
+        //     .post(`${store.getters.api}/user/avatar`, formData, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data',
+        //         },
+
+
+        console.log(avatar)
+        axios.
+            post('api/user/avatar', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(() => {
+                console.log('odoslabne')
+            })
+    },
+
     logOut: () => {
         axios.
             post('/logout')

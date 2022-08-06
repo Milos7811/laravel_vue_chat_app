@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" appear>
         <div
-            class="flex my-4 cursor-pointer p-2 border-0 rounded-lg relative"
+            class="flex my-4 cursor-pointer p-2 border-0 rounded-lg relative "
             :class="{'bg-theme-second drop-shadow-lg shadow-lg shadow-theme-second' : currentChat.data.id === chat.data.id, 'font-bold' : dotActive  }">
 
             <!-- Notification dot -->
@@ -10,21 +10,19 @@
                 <div>{{ this.chat.data.attributes.unreadedMessagesCount }}</div>
             </div>
 
-            <div class="flex flex-row items-center">
+            <div class="flex flex-row items-center overflow-hidden ">
 
+                <UserAvatar :members="chat.data.relationships.members" theme="theme"/>
 
-                <div class="w-10 h-10 bg-theme border rounded-full mr-3"></div>
-
-                <div class="flex flex-col">
-
-                    <div class="flex">
+                <div class="flex flex-col px-2">
+                    <div class="flex flex-row">
                         <div v-for="member of chat.data.relationships.members" :key="member.data.id">
-                            <div v-if="member.data.id !== user.id">
-                                {{ member.data.attributes.name }}
+                            <div class="whitespace-nowrap mr-1 font-bold" v-if="member.data.id !== user.id">
+                                {{ member.data.attributes.name }},
                             </div>
                         </div>
                     </div>
-                    <div v-if="chat.data.relationships.messages.length > 0" class="cursor-pointer">
+                    <div v-if="chat.data.relationships.messages.length > 0" class="cursor-pointer text-light-second">
                         {{ chat.data.relationships.messages[chat.data.relationships.messages.length -1].data.attributes.message}}
                     </div>
                 </div>
@@ -36,17 +34,21 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import UserAvatar from '../../User/UserAvatar'
 export default {
-    name: 'Chat',
-    props: [ 'chat' ],
+    name: "Chat",
+    props: ["chat"],
+    components: {
+        UserAvatar
+    },
     computed: {
-        ...mapGetters([ 'currentChat', 'user']),
+        ...mapGetters(["currentChat", "user"]),
         dotActive() {
             return this.chat.data.attributes.unreadedMessagesCount > 0 &&
-                this.currentChat.data.id !== this.chat.data.id
+                this.currentChat.data.id !== this.chat.data.id;
         },
     },
-
+    components: { UserAvatar }
 }
 </script>
 

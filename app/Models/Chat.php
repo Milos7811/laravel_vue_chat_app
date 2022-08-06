@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Chat extends Model
 {
@@ -12,6 +13,10 @@ class Chat extends Model
     protected $guarded = [
         'id',
     ];
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
 
     public function members()
     {
@@ -23,5 +28,14 @@ class Chat extends Model
     {
         return $this->hasMany(Message::class)
             ->with('owner');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($chat) {
+            $chat->id = Str::uuid();
+        });
     }
 }

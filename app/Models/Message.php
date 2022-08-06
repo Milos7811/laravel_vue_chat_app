@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Message extends Model
 {
@@ -15,6 +16,10 @@ class Message extends Model
         'message',
     ];
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public function owner()
     {
        return $this->belongsTo(User::class, 'user_id');
@@ -25,8 +30,12 @@ class Message extends Model
         $this->belongsTo(Chat::class, 'chat_id');
     }
 
-    public function lastReaded ()
+    protected static function boot()
     {
+        parent::boot();
 
+        static::creating(function ($message) {
+            $message->id = Str::uuid();
+        });
     }
 }

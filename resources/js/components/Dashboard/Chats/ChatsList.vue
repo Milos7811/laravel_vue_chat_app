@@ -2,7 +2,8 @@
     <div class="w-1/3 bg-light-second">
 
         <div class=" h-[50px] flex justify-start items-center ml-2">
-             <div class="w-10 h-10 bg-theme border rounded-full mr-3"></div>
+             <UserAvatar :avatar="user.avatar"/>
+             <!-- <input type="file" accept="image/*" @change="uploadAvatar"/> -->
              <div v-if="user">
                  {{ user.name}}
              </div>
@@ -26,19 +27,21 @@
 </template>
 
 <script>
-import Spinner from '../../Spinner.vue'
+import UserAvatar from '../../User/UserAvatar'
 import Chat from '../../Dashboard/Chats/Chat'
-import SearchBar from './SearchBar.vue'
+import SearchBar from './SearchBar'
+import Spinner from '../../Spinner'
 import { mapGetters } from 'vuex'
 import { events } from '../../../bus'
 
 export default {
     name: 'ChatsList',
     components: {
-        Spinner,
-        Chat,
-        SearchBar,
-    },
+    Spinner,
+    Chat,
+    SearchBar,
+    UserAvatar
+},
     computed: {
         ...mapGetters([ 'chats' , 'user' ]),
     },
@@ -52,6 +55,9 @@ export default {
             this.$store.dispatch('getChat', id)
 
             events.$emit('message-input:clear')
+        },
+        uploadAvatar(event) {
+            this.$store.dispatch('uploadAvatar', event)
         }
     },
     mounted() {

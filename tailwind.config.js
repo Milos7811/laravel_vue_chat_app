@@ -29,6 +29,7 @@ module.exports = {
             }),
             textColor: theme => ({
                 'light-text': '#000000',
+                'light-second' : '#666565',
                 'dark-text' : '#ffffff'
             })
         }

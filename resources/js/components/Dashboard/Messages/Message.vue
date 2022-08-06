@@ -3,6 +3,7 @@
         <div class="m-3 flex flex-row items-center"
             :class="{'justify-end' : isUserMessage }">
             <div v-if="!isUserMessage" class="w-10 h-10 bg-theme border rounded-full mr-2">
+            <UserAvatar :avatar="message.relationships.owner.data.attributes.avatar"/>
 
             </div>
 
@@ -17,16 +18,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import UserAvatar from '../../User/UserAvatar'
 export default {
-    name: 'Message',
-    props: ['message'],
+    name: "Message",
+    props: ["message"],
+    components: {
+        UserAvatar
+    },
     computed: {
-        ...mapGetters([ 'user' ]),
+        ...mapGetters(["user"]),
         isUserMessage() {
-            return this.message.relationships.owner.data.id === this.user.id
+            return this.message.relationships.owner.data.id === this.user.id;
         }
     },
-
+    components: { UserAvatar }
 }
 </script>
 
