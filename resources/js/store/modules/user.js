@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { forEach } from 'lodash'
 import router from '../../router'
 
 const defaultState = {
@@ -80,6 +81,9 @@ const mutations = {
         state.searchedUsers = []
 
         state.searchedUsers = data.data
+    },
+    FILTER_SEARCHED_USERS (state, users) {
+        state.searchUsers = state.searchUsers.filter(item => !users.includes(item))
     }
 }
 

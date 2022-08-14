@@ -14,16 +14,19 @@ const actions = {
             axios.
                 get('/api/chat')
                 .then((response) => {
-                    commit('SET_CHAT', response.data)
 
-                    commit('SET_CURRENT_CHAT', response.data.data[0])
+                    if(response.data.data.length > 0) {
+                        commit('SET_CHAT', response.data)
 
-                    // Remove unreaded messages from current opened chat
-                    commit('REMOVE_UNREADED_MESSAGES')
+                        commit('SET_CURRENT_CHAT', response.data.data[0])
+
+                        // Remove unreaded messages from current opened chat
+                        commit('REMOVE_UNREADED_MESSAGES')
+
+                        resolve(response.data)
+                    }
 
                     commit('SET_LOADED_TRUE')
-
-                    resolve(response.data)
                 })
                 .catch((e) => {
                     reject(e)

@@ -1,5 +1,5 @@
 <template>
-    <PopupWrapper name="new-message">
+    <PopupWrapper name="new-chat">
         <PopupHeader title="New Chat Message"/>
 
         <PopupContent>
@@ -9,7 +9,7 @@
                     <h1> {{ user.data.attributes.name}}</h1>
                 </div>
 
-                <MessageInput message-type="new-chat" :user-id="user.data.id"/>
+                <MessageInput message-type="new-chat" :users-id="[user.data.id]"/>
             </div>
         </PopupContent>
 
@@ -51,16 +51,14 @@ export default {
         }
     },
     methods: {
-        // createChat () {
-        //     events.$emit('new-chat:create', this.user.data.id)
-        // },
         closePopup() {
             events.$emit('popup:close')
         }
     },
     mounted () {
         events.$on('popup:open', data => {
-            this.user = data.payload.user
+            if(data.name === 'new-chat')
+                this.user = data.payload.user
         })
     }
 

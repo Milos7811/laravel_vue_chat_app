@@ -17,7 +17,7 @@ import { SendIcon } from 'vue-feather-icons'
 
 export default {
     name: 'MessageInput',
-    props: ['messageType', 'userId'],
+    props: ['messageType', 'usersId'],
     components: { SendIcon },
     computed: {
         ...mapGetters([ 'currentChat' ])
@@ -47,7 +47,7 @@ export default {
                     })
         },
         newChat () {
-            this.$store.dispatch('createNewChat', {message: this.message, usersId: [this.userId]})
+            this.$store.dispatch('createNewChat', {message: this.message, usersId: this.usersId})
 
             events.$emit('popup:close')
         }

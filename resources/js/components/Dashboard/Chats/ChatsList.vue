@@ -1,25 +1,38 @@
 <template>
-    <div class="w-1/3 bg-light-second">
+    <div class="w-1/3 h-full bg-light-second">
 
-        <div class=" h-[50px] flex justify-start items-center ml-2">
+        <div v-if="user" class=" h-[50px] flex justify-start items-center ml-2">
              <UserAvatar :avatar="user.avatar"/>
              <!-- <input type="file" accept="image/*" @change="uploadAvatar"/> -->
-             <div v-if="user">
+             <div>
                  {{ user.name}}
              </div>
         </div>
 
         <div class=" bg-light-second mt-4">
-            <SearchBar/>
 
-            <div v-if=" chats != undefined" class="w-full p-2">
-
-                <div v-for="chat of chats.data"
-                    :key="chat.data.id"
-                    @click="getChat(chat.data.id)">
-
-                    <Chat :chat="chat"/>
+            <div class="flex flex-row w-full p-2">
+                <SearchBar/>
+                <div class="flex justify-center items-center mx-3">
+                    <UsersIcon @click="groupChat" title="test" class=" cursor-pointer hover:stroke-theme-second"/>
                 </div>
+            </div>
+        </div>
+
+
+        <div v-if="chats" class="w-full p-2">
+
+            <div v-for="chat of chats.data"
+                :key="chat.data.id"
+                @click="getChat(chat.data.id)">
+
+                <Chat :chat="chat"/>
+            </div>
+        </div>
+
+        <div v-if="!chats" class="w-full h-full p-2 flex justify-center items-center">
+            <div class="w-[120px] h-[50px] bg-light flex justify-center items-center border-0 rounded-lg text-light-second font-bold">
+                Empty chats
             </div>
         </div>
 
@@ -33,6 +46,7 @@ import SearchBar from './SearchBar'
 import Spinner from '../../Spinner'
 import { mapGetters } from 'vuex'
 import { events } from '../../../bus'
+import { UsersIcon } from 'vue-feather-icons'
 
 export default {
     name: 'ChatsList',
@@ -40,7 +54,8 @@ export default {
     Spinner,
     Chat,
     SearchBar,
-    UserAvatar
+    UserAvatar,
+    UsersIcon
 },
     computed: {
         ...mapGetters([ 'chats' , 'user' ]),
@@ -58,6 +73,11 @@ export default {
         },
         uploadAvatar(event) {
             this.$store.dispatch('uploadAvatar', event)
+        },
+        groupChat () {
+            events.$emit('popup:open', {
+                name: 'new-group-chat',
+            })
         }
     },
     mounted() {

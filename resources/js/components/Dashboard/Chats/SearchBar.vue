@@ -1,8 +1,11 @@
 <template>
-    <div class="h-[50px] flex justify-center items-center ml-4 bg-light-second">
+    <div class="w-full flex justify-center items-center">
 
         <div class="w-full flex">
-            <div class="w-full bg-white border-2 border-transparent rounded-lg relative focus-within:border-theme ">
+
+            <div class="w-full bg-white border-2 border-light-second rounded-lg relative focus-within:border-theme">
+
+                <!-- Input -->
                 <div class="p-2">
                     <input v-model="query"
                         @input="searchUser"
@@ -11,17 +14,21 @@
                 </div>
 
                 <!-- Dropdown -->
-                <div @click.stop v-if="dropDown" class="bg-white shadow-xl absolute w-full h-atuo border-0 rounded-lg z-20 top-[50px]">
+                <div @click.stop v-if="dropDown" class="bg-white shadow-xl max-h-[300px] overflow-auto absolute w-full h-atuo border-0 rounded-lg z-20 top-[50px]">
                     <div class="w-full h-full">
                         <div v-for="user of searchedUsers" :key="user.data.id" class="cursor-pointer">
                             <div class="flex justify-between items-center p-2">
                                 <div class="w-full h-12 flex items-center">
-                                    <div class="w-10 h-10 bg-theme border rounded-full mr-2"></div>
+                                    <UserAvatar :avatar="user.data.attributes.avatar" theme="theme"/>
                                     <h1 class="hover:text-theme hover:font-bold"> {{ user.data.attributes.name}} </h1>
                                 </div>
-                                <MessageSquareIcon @click="chat(user)"
+                                <MessageSquareIcon v-if="! returnUser" @click="chat(user)"
                                     class="cursor-pointer stroke-2 hover:stroke-theme-second"
                                     size="1.3x"  />
+
+                                <PlusIcon v-if="returnUser && !showPlusIcon(user)"
+                                    class="cursor-pointer stroke-2 hover:stroke-theme-second"
+                                    @click="returnedUser(user)"/>
                             </div>
                         </div>
                     </div>
@@ -31,9 +38,6 @@
             <!-- Close Dropdwon after click outside box -->
             <div v-if="dropDown" @click="closeDropdown" class="fixed top-0 left-0 right-0 bottom-0 z-9 cursor-pointer"></div>
 
-            <div class="flex justify-center items-center mx-3">
-                <UsersIcon title="test" class=" cursor-pointer hover:stroke-theme-second"/>
-            </div>
         </div>
     </div>
 </template>
@@ -41,18 +45,21 @@
 <script>
 import { mapGetters } from 'vuex'
 import Spinner from '../../Spinner'
-import { MessageSquareIcon, UsersIcon } from 'vue-feather-icons'
+import { MessageSquareIcon, PlusIcon } from 'vue-feather-icons'
 import { events } from '../../../bus'
+import UserAvatar from '../../User/UserAvatar'
 
 export default {
     name: 'SearchBar',
     components: {
         Spinner,
         MessageSquareIcon,
-        UsersIcon,
+        UserAvatar,
+        PlusIcon
     },
+    props: ['returnUser', 'filterUsers'],
     computed: {
-        ...mapGetters([ 'chats', 'searchedUsers' ])
+        ...mapGetters([ 'chats', 'searchedUsers' ]),
     },
     data () {
         return {
@@ -62,6 +69,9 @@ export default {
         }
     },
     methods: {
+        showPlusIcon(user) {
+            return this.filterUsers.find(element => element.data.id === user.data.id)
+        },
         closeDropdown() {
             this.dropDown = false
 
@@ -78,20 +88,22 @@ export default {
 
             let createNewChat = true
 
-            this.chats.data.forEach(chat => {
-                if(chat.data.relationships.members.filter(member => member.data.id === user.data.id).length > 0 &&
-                    chat.data.relationships.members.length == 2) {
-                    this.$store.commit('SET_CURRENT_CHAT', chat)
+            if(this.chats) {
+                this.chats.data.forEach(chat => {
+                    if(chat.data.relationships.members.filter(member => member.data.id === user.data.id).length > 0 &&
+                        chat.data.relationships.members.length == 2) {
+                        this.$store.commit('SET_CURRENT_CHAT', chat)
 
-                    createNewChat = false
+                        createNewChat = false
 
-                    return
-                }
-            });
+                        return
+                    }
+                });
+            }
 
             if(createNewChat) {
                 events.$emit('popup:open', {
-                    name: 'new-message',
+                    name: 'new-chat',
                     payload : {
                         user: user
                     }
@@ -99,8 +111,11 @@ export default {
 
                 this.dropDown = false
             }
+        },
+        returnedUser(user) {
+            this.$emit('returnedUser', user)
         }
-    }
+    },
 }
 </script>
 

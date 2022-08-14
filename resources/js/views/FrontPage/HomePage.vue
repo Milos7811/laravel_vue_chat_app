@@ -1,6 +1,6 @@
 <template>
     <div>
-       <div class ="flex justify-end h-12 py-2 bg-light-second pr-5">
+       <div v-if="! isAuth" class ="flex justify-end h-12 py-2 bg-light-second pr-5">
            <router-link :to="{ name: 'SignIn' }" class="w-[100px] mr-5 flex justify-center items-center border-2 border-theme rounded-sm font-bold">
                <div>Login</div>
            </router-link>
@@ -9,13 +9,27 @@
                <div >REGISTER</div>
            </router-link>
        </div>
+
+       <div v-if="isAuth" class="flex justify-end h-12 py-2 bg-light-second pr-5">
+           <router-link :to="{name : 'Dashboard'}" class="w-[100px] flex justify-center items-center border-2 rounded-sm border-theme font-bold">
+                <div> Dashboard</div>
+           </router-link>
+       </div>
     </div>
 </template>
 
 <script>
-    export default {
+import { mapGetters } from 'vuex'
 
-    }
+export default {
+    name: 'HomePage',
+    computed: {
+        ...mapGetters( ['config'] ),
+        isAuth() {
+            return config.authCheck ? config.authCheck : null
+        }
+    },
+}
 </script>
 
 <style lang="scss" scoped>

@@ -14,8 +14,6 @@ class NewMessageController extends Controller
 {
     public function __invoke(NewMessageRequest $request) : MessageResource
     {
-        // return $user->createToken('test1')->plainTextToken;
-
         checkUserInChat($request);
 
         $chat = Chat::whereId($request->input('chat_id'))
@@ -34,8 +32,9 @@ class NewMessageController extends Controller
 
         foreach ($chat->members as $member){
 
-            if(Auth::id() != $member->id)
+            if(Auth::id() != $member->id) {
                 NewMessageEvent::dispatch($member->id, $message);
+            }
         }
 
         return new MessageResource($message);

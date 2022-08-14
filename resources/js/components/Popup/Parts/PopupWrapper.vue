@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         closePopup () {
-            this.isVisible = false
+            events.$emit('popup:close')
         }
     },
     mounted () {

@@ -51,11 +51,7 @@ if (! function_exists('unreadedMessagesCount')) {
 
         // Get count of the don't read messages
         foreach($messages as $message) {
-            // Format times to same format
-            $messageTime = $message->created_at->format('H:i:s d.m.Y');
-            $lastReaded = Carbon::createFromFormat('Y-m-d H:i:s',  $user->pivot->last_readed)->format('H:i:s d-m-Y');
-
-            if($messageTime > $lastReaded && $message->owner->id != Auth::id()) {
+            if($message->created_at->greaterThan($user->pivot->last_readed) && $message->owner->id != Auth::id()) {
                 array_push($unreadedMessages, $message);
             }
         }

@@ -35,6 +35,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import UserAvatar from '../../User/UserAvatar'
+
 export default {
     name: "Chat",
     props: ["chat"],
