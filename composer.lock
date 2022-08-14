@@ -5506,7 +5506,6 @@
             "homepage": "https://symfony.com",
             "keywords": [
                 "grapheme",
-                "i18n",
                 "string",
                 "unicode",
                 "utf-8",
