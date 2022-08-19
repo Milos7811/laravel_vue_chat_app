@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { forEach } from 'lodash'
 import router from '../../router'
 
 const defaultState = {
@@ -10,7 +9,7 @@ const defaultState = {
 
 const actions = {
 
-    getUser: ({commit, dispatch}, id) => {
+    getUser: ({commit, dispatch}) => {
         axios.
             get('api/user')
             .then((response) => {

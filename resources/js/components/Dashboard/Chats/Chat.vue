@@ -17,7 +17,7 @@
                 <div class="flex flex-col px-2">
                     <div class="flex flex-row">
                         <div v-for="member of chat.data.relationships.members" :key="member.data.id">
-                            <div class="whitespace-nowrap mr-1 font-bold" v-if="member.data.id !== user.id">
+                            <div class="whitespace-nowrap mr-1 font-bold" v-if="member.data.id !== user.data.id">
                                 {{ member.data.attributes.name }},
                             </div>
                         </div>

@@ -28,7 +28,7 @@ export default {
     computed: {
         ...mapGetters(["user"]),
         isUserMessage() {
-            return this.message.relationships.owner.data.id === this.user.id;
+            return this.message.relationships.owner.data.id === this.user.data.id;
         }
     },
     components: { UserAvatar }

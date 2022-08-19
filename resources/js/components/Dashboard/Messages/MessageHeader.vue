@@ -3,7 +3,7 @@
         <div class="flex flex-row justify-start items-center">
             <UserAvatar :members="currentChat.data.relationships.members" theme="theme-second"/>
             <div v-for="member of currentChat.data.relationships.members" :key="member.data.id">
-                <div class="mr-1" v-if="member.data.id != user.id">
+                <div class="mr-1" v-if="member.data.id != user.data.id">
                     {{ member.data.attributes.name }},
                 </div>
             </div>

@@ -1,6 +1,4 @@
 import axios from 'axios'
-import _ from 'lodash'
-import Vue from 'vue'
 
 const defaultState = {
     chats: undefined,

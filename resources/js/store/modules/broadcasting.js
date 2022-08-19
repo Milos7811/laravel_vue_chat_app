@@ -5,7 +5,7 @@ const defaultState = {
 
 const actions = {
     broadcastConnect : ({commit, dispatch, getters}) => {
-        Echo.private(`App.Models.User.${getters.user.id}`)
+        Echo.private(`App.Models.User.${getters.user.data.id}`)
         .listen('.message', (response) => {
 
             commit('PUSH_COMMING_MESSAGE', response)

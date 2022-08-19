@@ -26,9 +26,6 @@
                     <div class="w-10 h-10 flex items-center" :title="member.data.attributes.name">
                         <img class="w-full h-full rounded-full" v-if="member.data.attributes.avatar" :src="member.data.attributes.avatar"/>
                         <CustomUserAvatar v-else size="30" class=""/>
-                        <!-- <div>
-                                {{ member.data.attributes.name}}
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -72,7 +69,7 @@ export default {
     computed: {
         ...mapGetters([ 'user' ]),
         showedMembers() {
-            let array =  this.members.filter(item => item.data.id !== this.user.id)
+            let array =  this.members.filter(item => item.data.id !== this.user.data.id)
 
             return array.slice(0, 2)
         }

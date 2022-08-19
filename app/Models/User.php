@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Chat;
+use App\Models\Friendship;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Laravel\Sanctum\HasApiTokens;
@@ -53,6 +55,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Chat::class, 'chat_user', 'user_id', 'chat_id' )
             ->withPivot('last_readed');
     }
+
+    public function friendships()
+    {
+        return $this->hasMany(Friendship::class)
+            ->where('user_id', $this->id)
+            ->oRwhere('friend_id', $this->id);
+    }
+
 
     public function getAvatarAttribute()
     {

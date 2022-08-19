@@ -33,7 +33,7 @@ export default {
         MessageHeader,
     },
     computed: {
-        ...mapGetters(['currentChat', 'user']),
+        ...mapGetters(['currentChat']),
         messages() {
             return this.currentChat.data.relationships.messages
         }

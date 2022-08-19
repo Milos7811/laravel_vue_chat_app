@@ -2,10 +2,10 @@
     <div class="w-1/3 h-full bg-light-second">
 
         <div v-if="user" class=" h-[50px] flex justify-start items-center ml-2">
-             <UserAvatar :avatar="user.avatar"/>
+             <UserAvatar :avatar="user.data.attributes.avatar"/>
              <!-- <input type="file" accept="image/*" @change="uploadAvatar"/> -->
              <div>
-                 {{ user.name}}
+                 {{ user.data.attributes.name}}
              </div>
         </div>
 

@@ -19,8 +19,6 @@ class StoreUserAvatarController extends Controller
 
         $userId = Auth::id();
 
-        // $path = "avatars/{$userId}";
-
         Storage::putFileAs('avatars/', $avatar, $avatarName);
 
         User::whereId($userId)
