@@ -89,7 +89,7 @@ export default {
             let createNewChat = true
 
             if(this.chats) {
-                this.chats.data.forEach(chat => {
+                this.chats.forEach(chat => {
                     if(chat.data.relationships.members.filter(member => member.data.id === user.data.id).length > 0 &&
                         chat.data.relationships.members.length == 2) {
                         this.$store.commit('SET_CURRENT_CHAT', chat)

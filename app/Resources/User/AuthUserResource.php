@@ -23,7 +23,7 @@ class AuthUserResource extends JsonResource
                     'name'   => $this->name,
                     'email'  => $this->email,
                     'avatar' => $this->avatar,
-                    'sttaus' => $this->status
+                    'status' => $this->status
                 ],
                 'relationships' => [
                     $this->mergeWhen($this->friendships, fn () => [

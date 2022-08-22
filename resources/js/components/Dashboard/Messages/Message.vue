@@ -3,7 +3,7 @@
         <div class="m-3 flex flex-row items-center"
             :class="{'justify-end' : isUserMessage }">
             <div v-if="!isUserMessage" class="w-10 h-10 bg-theme border rounded-full mr-2">
-            <UserAvatar :avatar="message.relationships.owner.data.attributes.avatar"/>
+            <UserAvatar :avatar="message.relationships.owner.data.attributes.avatar" theme="theme"/>
 
             </div>
 

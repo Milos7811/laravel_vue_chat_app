@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
+        'status'
     ];
 
     protected $hidden = [
@@ -41,6 +42,20 @@ class User extends Authenticatable
     public $incrementing = false;
 
     protected $keyType = 'string';
+
+    public function online()
+    {
+        $this->update([
+            'status' => 'online',
+        ]);
+    }
+
+    public function offline()
+    {
+        $this->update([
+            'status' => 'offline',
+        ]);
+    }
 
     public function chats()
     {

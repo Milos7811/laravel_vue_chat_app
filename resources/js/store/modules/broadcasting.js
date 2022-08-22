@@ -1,6 +1,5 @@
 
 const defaultState = {
-    config: undefined,
 }
 
 const actions = {

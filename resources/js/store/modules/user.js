@@ -5,6 +5,7 @@ const defaultState = {
     user: undefined,
     authCheck: false,
     searchedUsers: [],
+    friendships: undefined
 }
 
 const actions = {
@@ -16,6 +17,21 @@ const actions = {
                 commit('SET_USER', response.data)
 
                 dispatch('broadcastConnect')
+
+                if(response.data.data.relationships.chats.length > 0) {
+                    commit('SET_CHAT',response.data.data.relationships.chats)
+
+                    commit('SET_CURRENT_CHAT', response.data.data.relationships.chats[0])
+
+                    // Remove unreaded messages from current opened chat
+                    commit('REMOVE_UNREADED_MESSAGES')
+                }
+
+                if(response.data.data.relationships.friendships.length > 0) {
+                    commit('SET_FRIENDSHIPS', response.data.data.relationships.friendships )
+                }
+
+                commit('SET_LOADED_TRUE')
             })
     },
 
@@ -40,14 +56,6 @@ const actions = {
         // Add image to form
         data.append('avatar', avatar)
 
-        // axios
-        //     .post(`${store.getters.api}/user/avatar`, formData, {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data',
-        //         },
-
-
-        console.log(avatar)
         axios.
             post('api/user/avatar', data, {
                 headers: {
@@ -59,11 +67,29 @@ const actions = {
             })
     },
 
-    logOut: () => {
+    updateUserStatus: ({}, status) => {
+        axios.
+            post('api/user/status', {
+                status: status
+            })
+    },
+
+    logOut: ({commit, dispatch}) => {
         axios.
             post('/logout')
-            .then(() => {
-               router.push({ name: 'SignIn' })
+            .finally(() => {
+
+                commit('SET_LOADED_FALSE')
+
+                commit('SET_AUTH', false)
+
+                commit('CLEAR_USER_DATA')
+
+                commit('CLEAR_CHAT_DATA')
+
+                dispatch('updateUserStatus', 'offline')
+
+                router.push({ name: 'SignIn' })
             })
     }
 
@@ -83,13 +109,21 @@ const mutations = {
     },
     FILTER_SEARCHED_USERS (state, users) {
         state.searchUsers = state.searchUsers.filter(item => !users.includes(item))
-    }
+    },
+    SET_FRIENDSHIPS (state, data) {
+        state.friendships = data
+    },
+    CLEAR_USER_DATA (state) {
+        state.user = undefined
+        state.friendships = undefined
+    },
 }
 
 const getters = {
     user: (state) => state.user,
     authCheck: (state) => state.authCheck,
     searchedUsers: (state) => state.searchedUsers,
+    friendships: (state) => state.friendships
 }
 
 export default {

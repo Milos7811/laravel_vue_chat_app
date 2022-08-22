@@ -22,7 +22,7 @@ class FriendshipResource extends JsonResource
 
                 'attributes' => [
                     'status' => $this->status,
-                    'friend' => $this->friendsTo->id === Auth::id() ? $this->friendsFrom : $this->friendsTo,
+                    'friend' => new UserResource($this->friendsTo->id === Auth::id() ? $this->friendsFrom : $this->friendsTo)
                 ],
 
             ]

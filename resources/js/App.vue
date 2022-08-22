@@ -15,17 +15,14 @@ export default {
         ...mapGetters([ 'loaded', 'config'])
     },
     beforeMount () {
-       this.$store.commit('SET_CONFIG', this.$root.$data.config)
+        this.$store.commit('SET_CONFIG', this.$root.$data.config)
 
-       this.$store.commit('SET_AUTH', this.$root.$data.config.authCheck)
-
-       console.log(this.$route.name)
+        this.$store.commit('SET_AUTH', this.$root.$data.config.authCheck)
 
         if(config.authCheck && this.$route.name !== null) {
             this.$router.push({name: 'Dashboard'})
         }
-    }
-
+    },
 }
 </script>
 

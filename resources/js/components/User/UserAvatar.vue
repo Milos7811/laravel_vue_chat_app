@@ -41,7 +41,7 @@
         </div>
 
         <!-- Custom Avatar for users without Avatar -->
-        <div v-if="!members && !avatar" class="w-10 h-10 bg-light-second flex rounded-full"
+        <div v-if="!members && !avatar" class="w-10 h-10 bg-theme border-2 rounded-full"
             :class="`border-${theme}`">
             <CustomUserAvatar size="30"/>
         </div>

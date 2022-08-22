@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
 
 class Friendship extends Model
 {
-    use HasFactory, HasMergedRelationships;
+    use HasFactory;
 
     public $incrementing = false;
 

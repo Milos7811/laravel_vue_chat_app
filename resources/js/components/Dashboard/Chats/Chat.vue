@@ -2,11 +2,11 @@
     <transition name="fade" appear>
         <div
             class="flex my-4 cursor-pointer p-2 border-0 rounded-lg relative "
-            :class="{'bg-theme-second drop-shadow-lg shadow-lg shadow-theme-second' : currentChat.data.id === chat.data.id, 'font-bold' : dotActive  }">
+            :class="{'bg-theme-second drop-shadow-lg shadow-md shadow-theme-second' : currentChat.data.id === chat.data.id, 'font-bold' : dotActive  }">
 
             <!-- Notification dot -->
             <div v-if="dotActive"
-                class="notification-dot w-5 h-5 border-0 rounded-full bg-theme-second animate-pulse absolute flex justify-center items-center">
+                class="notification-dot w-5 h-5 border-0 z-10 rounded-full bg-theme-second animate-pulse absolute flex justify-center items-center">
                 <div>{{ this.chat.data.attributes.unreadedMessagesCount }}</div>
             </div>
 

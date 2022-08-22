@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Button from '../../components/Button.vue';
+import Button from '../../components/Button';
 
 export default {
     name: 'SignIn',
@@ -44,17 +44,11 @@ export default {
                     this.$store.commit('SET_AUTH', true)
 
                     this.$router.push({name: 'Dashboard'})
+
+                    this.$store.dispatch('updateUserStatus', 'online')
                 })
         },
-        csrf() {
-            axios.get('/sanctum/csrf-cookie').then(response => {
-                // Login...
-            });
-        }
     },
-    mounted () {
-        this.csrf()
-    }
 }
 </script>
 

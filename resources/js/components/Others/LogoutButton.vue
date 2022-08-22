@@ -1,6 +1,6 @@
 <template>
     <div @click="logOut"
-        class="absolute bottom-5 left-5 cursor-pointer h-10 w-10  flex justify-center items-center border-0 rounded-full">
+        class="z-100 absolute bottom-2 left-5 cursor-pointer h-10 w-10 flex justify-center items-center border-0 rounded-full">
         <LogOutIcon class="hover:stroke-theme-second"/>
     </div>
 </template>

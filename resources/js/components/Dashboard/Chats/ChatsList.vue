@@ -1,7 +1,7 @@
 <template>
-    <div class="w-1/3 h-full bg-light-second">
+    <div class="w-1/3 h-full flex flex-col bg-light-second">
 
-        <div v-if="user" class=" h-[50px] flex justify-start items-center ml-2">
+        <div v-if="user" class=" min-h-[50px] flex items-center ml-2">
              <UserAvatar :avatar="user.data.attributes.avatar"/>
              <!-- <input type="file" accept="image/*" @change="uploadAvatar"/> -->
              <div>
@@ -9,8 +9,7 @@
              </div>
         </div>
 
-        <div class=" bg-light-second mt-4">
-
+        <div class="bg-light-second my-2">
             <div class="flex flex-row w-full p-2">
                 <SearchBar/>
                 <div class="flex justify-center items-center mx-3">
@@ -19,14 +18,14 @@
             </div>
         </div>
 
+        <div class="overflow-auto">
+            <div v-if="chats" class="p-2" >
+                <div v-for="chat of chats"
+                    :key="chat.data.id"
+                    @click="getChat(chat.data.id)">
 
-        <div v-if="chats" class="w-full p-2">
-
-            <div v-for="chat of chats.data"
-                :key="chat.data.id"
-                @click="getChat(chat.data.id)">
-
-                <Chat :chat="chat"/>
+                    <Chat :chat="chat"/>
+                </div>
             </div>
         </div>
 
@@ -51,19 +50,14 @@ import { UsersIcon } from 'vue-feather-icons'
 export default {
     name: 'ChatsList',
     components: {
-    Spinner,
-    Chat,
-    SearchBar,
-    UserAvatar,
-    UsersIcon
-},
+        Spinner,
+        Chat,
+        SearchBar,
+        UserAvatar,
+        UsersIcon
+    },
     computed: {
         ...mapGetters([ 'chats' , 'user' ]),
-    },
-    data() {
-        return {
-            loading: true,
-        };
     },
     methods: {
         getChat (id) {
@@ -79,11 +73,6 @@ export default {
                 name: 'new-group-chat',
             })
         }
-    },
-    mounted() {
-        this.$store.dispatch('getAllChats').then(() => {
-            this.loading = false;
-        });
     },
 }
 </script>

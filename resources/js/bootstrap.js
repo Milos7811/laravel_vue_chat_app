@@ -25,15 +25,5 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: config.broadcastingKey,
     cluster: config.broadcastingCluster,
-    // wsHost: 'localhost',
-	// wsPort: '8000',
-	// wssPort: '8000',
     forceTLS: false,
-    // auth:{
-    //     headers: {
-    //         Accept: 'application/json',
-    //         // Authorization: 'Bearer ' + 'NSj5Eg2z0Fbdtahngz0ZFMPwPPigiDnjLbjgIJdh',
-    //         // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-    //     },
-    // },
 });

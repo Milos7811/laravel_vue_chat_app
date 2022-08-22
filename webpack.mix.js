@@ -12,17 +12,23 @@ const mix = require('laravel-mix');
  */
 
  mix.js('resources/js/main.js', 'public/js')
- .vue()
- .sass('resources/sass/app.scss', 'public/css')
+    .vue()
+    .sass('resources/sass/app.scss', 'public/css')
 
- .postCss("resources/css/tailwind.css", "public/css/tailwind.css", [
-     require("tailwindcss"),
- ])
+    .postCss("resources/css/tailwind.css", "public/css/tailwind.css", [
+        require("tailwindcss"),
+    ])
 
- .webpackConfig({
-     output: {
-         chunkFilename: '[name].js?id=[chunkhash]',
-     }
- })
+    .webpackConfig({
+        output: {
+            chunkFilename: '[name].js?id=[chunkhash]',
+        }
+    })
+    // .options({
+    //     hmrOptions: {
+    //         host: '127.0.0.1',
+    //         port: '8080'
+    //     },
+    // })
 
  .disableNotifications();
