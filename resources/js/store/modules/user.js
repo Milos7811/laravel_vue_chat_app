@@ -117,6 +117,29 @@ const mutations = {
         state.user = undefined
         state.friendships = undefined
     },
+    SET_ONLINE_STATUS(state, user) {
+        let index = _.findIndex(state.friendships, function(friendship) {
+            return friendship.data.attributes.friend.data.id === user.data.id
+        })
+
+        state.friendships[index].data.attributes.friend.data.attributes.status = 'online'
+    },
+    SET_OFFLINE_STATUS(state, user) {
+        let index = _.findIndex(state.friendships, function(friendship) {
+            return friendship.data.attributes.friend.data.id === user.data.id
+        })
+
+        state.friendships[index].data.attributes.friend.data.attributes.status = 'offline'
+    },
+    SET_FRIENDS_STATUS(state, users) {
+        state.friendships.filter((friendship) => {
+            _.findKey(users, function(user) {
+                if(user.data.id === friendship.data.attributes.friend.data.id) {
+                    friendship.data.attributes.friend.data.attributes.status = 'online'
+                }
+            })
+        })
+    }
 }
 
 const getters = {

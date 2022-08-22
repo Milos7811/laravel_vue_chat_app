@@ -44,8 +44,6 @@ export default {
                     this.$store.commit('SET_AUTH', true)
 
                     this.$router.push({name: 'Dashboard'})
-
-                    this.$store.dispatch('updateUserStatus', 'online')
                 })
         },
     },
