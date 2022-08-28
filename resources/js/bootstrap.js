@@ -25,5 +25,7 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: config.broadcastingKey,
     cluster: config.broadcastingCluster,
+    wsHost: config.broadcastingHost,
+	wsPort: config.broadcastingPort,
     forceTLS: false,
 });

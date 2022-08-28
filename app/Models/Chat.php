@@ -27,7 +27,8 @@ class Chat extends Model
     public function messages()
     {
         return $this->hasMany(Message::class)
-            ->with('owner');
+            ->with('owner')
+            ->orderBy('updated_at', 'ASC');
     }
 
     protected static function boot()

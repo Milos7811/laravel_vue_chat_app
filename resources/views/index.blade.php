@@ -29,7 +29,9 @@
                 // Broadcasting
                 broadcasting : '{{ config('broadcasting.connections.pusher.driver') }}',
                 broadcastingKey : '{{ config('broadcasting.connections.pusher.key') }}',
-                broadcastingCluster : '{{ config('broadcasting.connections.pusher.options.cluster') }}'
+                broadcastingCluster : '{{ config('broadcasting.connections.pusher.options.cluster') }}',
+                broadcastingHost : '{{ config('broadcasting.connections.pusher.options.host') }}',
+                broadcastingPort : '{{ config('broadcasting.connections.pusher.options.port') }}'
 
             }
 
