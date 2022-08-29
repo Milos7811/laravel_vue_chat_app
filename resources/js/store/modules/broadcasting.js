@@ -20,6 +20,9 @@ const actions = {
             dispatch('messageSound')
 
         })
+        .notification((notification) => {
+            console.log(notification)
+        })
 
         Echo.join('User.Presence')
             .here((users) => {

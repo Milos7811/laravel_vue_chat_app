@@ -3,6 +3,7 @@
 namespace App\Resources\User;
 
 use App\Resources\Chat\ChatCollection;
+use App\Resources\Notification\NotificationCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthUserResource extends JsonResource
@@ -26,6 +27,9 @@ class AuthUserResource extends JsonResource
                     'status' => $this->status
                 ],
                 'relationships' => [
+                    'readNotifications'    => new NotificationCollection($this->readNotifications),
+                    'unreadNotifications' => new NotificationCollection($this->unreadNotifications),
+
                     $this->mergeWhen($this->friendships, fn () => [
                         'friendships' => new FriendshipCollection($this->friendships),
                     ]),

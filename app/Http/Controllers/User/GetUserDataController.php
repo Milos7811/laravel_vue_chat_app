@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Resources\User\AuthUserResource;
-use App\Resources\User\FriendshipCollection;
 use Illuminate\Support\Facades\Auth;
-use App\Resources\User\UserResource;
+use App\Resources\User\AuthUserResource;
 
 class GetUserDataController extends Controller
 {

@@ -2,8 +2,6 @@
 
 namespace App\Resources\Chat;
 
-use App\Resources\User\UserCollection;
-use App\Resources\User\ChatMemberResource;
 use App\Resources\Message\MessageCollection;
 use App\Resources\User\ChatMemberCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
