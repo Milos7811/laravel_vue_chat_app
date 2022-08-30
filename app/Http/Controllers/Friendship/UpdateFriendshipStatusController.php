@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Friendship;
 
 use App\Models\Friendship;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateFriendshipStatusRequest;
+use App\Resources\Friendship\FriendshipResource;
 
 class UpdateFriendshipStatusController extends Controller
 {
-    public function __invoke(UpdateFriendshipStatusRequest $request) : Response
+    public function __invoke(UpdateFriendshipStatusRequest $request) : FriendshipResource
     {
         $friendship = Friendship::whereId($request->input('friendshipId'))
             ->first();
@@ -22,6 +22,6 @@ class UpdateFriendshipStatusController extends Controller
             $friendship->reject();
         }
 
-        return response('Friendship status updated.', 200);
+        return new FriendshipResource($friendship);
     }
 }

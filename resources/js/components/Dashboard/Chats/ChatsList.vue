@@ -57,7 +57,7 @@ export default {
         UsersIcon
     },
     computed: {
-        ...mapGetters([ 'chats' , 'user' ]),
+        ...mapGetters([ 'chats' , 'user']),
     },
     methods: {
         getChat (id) {

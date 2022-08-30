@@ -29,12 +29,13 @@ const actions = {
                 commit('SET_FRIENDS_STATUS', users)
             })
             .joining((user) => {
-                commit('SET_ONLINE_STATUS', user)
+                commit('SET_FRIEND_STATUS', {user: user, status: 'online'})
             })
             .leaving((user) => {
-                commit('SET_OFFLINE_STATUS', user)
+                commit('SET_FRIEND_STATUS', {user: user, status: 'offline'})
             })
     },
+
     messageSound : () => {
         new Audio('/audio/message_voice.mp3').play()
     }

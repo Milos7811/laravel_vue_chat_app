@@ -24,7 +24,6 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
-        'status'
     ];
 
     protected $hidden = [
@@ -42,20 +41,6 @@ class User extends Authenticatable
     public $incrementing = false;
 
     protected $keyType = 'string';
-
-    public function online()
-    {
-        $this->update([
-            'status' => 'online',
-        ]);
-    }
-
-    public function offline()
-    {
-        $this->update([
-            'status' => 'offline',
-        ]);
-    }
 
     public function chats()
     {
@@ -77,7 +62,6 @@ class User extends Authenticatable
             ->where('user_id', $this->id)
             ->oRwhere('friend_id', $this->id);
     }
-
 
     public function getAvatarAttribute()
     {

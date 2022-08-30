@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Friendship;
-use App\Resources\User\FriendshipResource;
+use App\Resources\Friendship\FriendshipResource;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;

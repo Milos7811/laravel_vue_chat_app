@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resources\User;
+namespace App\Resources\Friendship;
 
 use Illuminate\Support\Collection;
 use Illuminate\Http\Resources\Json\ResourceCollection;

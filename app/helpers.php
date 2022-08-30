@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Chat;
-use Illuminate\Support\Carbon;
+use App\Models\Friendship;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,6 +59,25 @@ if (! function_exists('unreadedMessagesCount')) {
         // Return count of unreaded messages
         return count($unreadedMessages);
     }
+}
+
+if(! function_exists('checkFriendshipExist')) {
+    /**
+    * Check if Friendship exist already
+    */
+   function checkFriendshipExist(string $friendId) : Friendship | Bool
+   {
+        $friendship = Friendship::where([
+            ['user_id', Auth::id()],
+            ['friend_id', $friendId]
+        ])
+        ->orWhere([
+            ['user_id', $friendId],
+            ['friend_id', Auth::id() ]
+        ])->first();
+
+        return $friendship ? $friendship : false;
+   }
 }
 
 if(! function_exists('storeAvatar')) {

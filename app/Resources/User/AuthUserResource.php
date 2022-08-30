@@ -3,17 +3,12 @@
 namespace App\Resources\User;
 
 use App\Resources\Chat\ChatCollection;
-use App\Resources\Notification\NotificationCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Resources\Friendship\FriendshipCollection;
+use App\Resources\Notification\NotificationCollection;
 
 class AuthUserResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
     public function toArray($request)
     {
         return [
@@ -30,9 +25,19 @@ class AuthUserResource extends JsonResource
                     'readNotifications'    => new NotificationCollection($this->readNotifications),
                     'unreadNotifications' => new NotificationCollection($this->unreadNotifications),
 
-                    $this->mergeWhen($this->friendships, fn () => [
-                        'friendships' => new FriendshipCollection($this->friendships),
-                    ]),
+                    'friendships' => [
+                        $this->mergeWhen($this->friendships, fn () => [
+                            'accepted' => new FriendshipCollection($this->friendships->where('status', 'accepted')),
+                        ]),
+
+                        // $this->mergeWhen($this->friendships, fn () => [
+                        //     'rejected' => new FriendshipCollection($this->friendships->where('status', 'rejected')),
+                        // ]),
+
+                        $this->mergeWhen($this->friendships, fn () => [
+                            'pending' => new FriendshipCollection($this->friendships->where('status', 'pending')),
+                        ]),
+                    ],
 
                     $this->mergeWhen($this->chats, fn () => [
                         'chats' => new ChatCollection($this->chats),

@@ -1,17 +1,48 @@
 <template>
     <div class="w-[300px] bg-light-second">
-        <div class="min-h-[50px]  flex justify-center items-center">
+        <div class="min-h-[50px]  flex items-center pl-2">
             Friend List
         </div>
-        <div class="p-2" v-for="friendship in friendships" :key="friendship.data.id">
-            <div class="flex flex-row justify-between cursor-pointer bg-light hover:bg-theme p-2 border-0 rounded-lg">
-                <div class="flex flex-row items-center">
-                    <UserAvatar :avatar="friendship.data.attributes.friend.data.attributes.avatar"/>
-                    <div class="font-bold">
-                        {{friendship.data.attributes.friend.data.attributes.name}}
-                    </div>
+
+        <div>
+            <div @click="toggleShow('acceptedShow')"
+                class=" h-[30px] cursor-pointer flex justify-center items-center">
+                Accepted
+                <ArrowDownIcon class="ml-2" size="1x"
+                    :class="{'rotate-180' : acceptedShow}"/>
+            </div>
+            <div v-if="acceptedShow" class="">
+                <div class="p-2" v-for="friendship in friendships.accepted" :key="friendship.data.id">
+                    <Friend :friendship="friendship"/>
                 </div>
-                <UserStatusDot :status="friendship.data.attributes.friend.data.attributes.status" class="justify-self-end"/>
+            </div>
+        </div>
+
+        <!-- <div>
+            <div @click="toggleShow('rejectedShow')"
+                class=" h-[30px] cursor-pointer flex justify-center items-center">
+                Rejected
+                <ArrowDownIcon class="ml-2" size="1x"
+                    :class="{'rotate-180' : rejectedShow}"/>
+            </div>
+            <div v-if="rejectedShow" class="">
+                <div class="p-2" v-for="friendship in friendships.rejected" :key="friendship.data.id">
+                    <Friend :friendship="friendship"/>
+                </div>
+            </div>
+        </div> -->
+
+        <div>
+            <div @click="toggleShow('pendingShow')"
+                class=" h-[30px] cursor-pointer flex justify-center items-center">
+                Pending
+                <ArrowDownIcon class="ml-2" size="1x"
+                    :class="{'rotate-180' : pendingShow}"/>
+            </div>
+            <div v-if="pendingShow" class="">
+                <div class="p-2" v-for="friendship in friendships.pending" :key="friendship.data.id">
+                    <Friend :friendship="friendship"/>
+                </div>
             </div>
         </div>
     </div>
@@ -19,16 +50,36 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import UserAvatar from '../../User/UserAvatar';
-import UserStatusDot from '../../User/UserStatusDot';
+import Friend from './Friend'
+import { ArrowDownIcon } from 'vue-feather-icons'
+
 export default {
-    name: "FriendsList",
+    name: 'FriendsList',
     computed: {
-        ...mapGetters(["friendships"])
+        ...mapGetters([ 'friendships' ])
     },
     components: {
-        UserAvatar,
-        UserStatusDot
+        Friend,
+        ArrowDownIcon
+    },
+    data () {
+        return {
+            acceptedShow: undefined,
+            rejectedShow: undefined,
+            pendingShow: undefined
+        }
+    },
+    methods: {
+        toggleShow (type) {
+            this[type] = this[type] ? false : true;
+
+            localStorage.setItem(type, this[type])
+        }
+    },
+    created () {
+        this.acceptedShow = JSON.parse(localStorage.getItem('acceptedShow'))
+        // this.rejectedShow = JSON.parse(localStorage.getItem('rejectedShow'))
+        this.pendingShow = JSON.parse(localStorage.getItem('pendingShow'))
     }
 }
 </script>

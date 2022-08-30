@@ -1,11 +1,11 @@
 import axios from 'axios'
+import _ from 'lodash'
 import router from '../../router'
 
 const defaultState = {
     user: undefined,
     authCheck: false,
     searchedUsers: [],
-    friendships: undefined
 }
 
 const actions = {
@@ -27,9 +27,7 @@ const actions = {
                     commit('REMOVE_UNREADED_MESSAGES')
                 }
 
-                if(response.data.data.relationships.friendships.length > 0) {
-                    commit('SET_FRIENDSHIPS', response.data.data.relationships.friendships )
-                }
+                commit('SET_FRIENDSHIPS', response.data.data.relationships.friendships)
 
                 commit('SET_LOADED_TRUE')
             })
@@ -67,13 +65,6 @@ const actions = {
             })
     },
 
-    updateUserStatus: ({}, status) => {
-        axios.
-            post('api/user/status', {
-                status: status
-            })
-    },
-
     logOut: ({commit, dispatch}) => {
         axios.
             post('/logout')
@@ -87,12 +78,9 @@ const actions = {
 
                 commit('CLEAR_CHAT_DATA')
 
-                dispatch('updateUserStatus', 'offline')
-
                 router.push({ name: 'SignIn' })
             })
     }
-
 }
 
 const mutations = {
@@ -110,43 +98,16 @@ const mutations = {
     FILTER_SEARCHED_USERS (state, users) {
         state.searchUsers = state.searchUsers.filter(item => !users.includes(item))
     },
-    SET_FRIENDSHIPS (state, data) {
-        state.friendships = data
-    },
     CLEAR_USER_DATA (state) {
         state.user = undefined
         state.friendships = undefined
     },
-    SET_ONLINE_STATUS(state, user) {
-        let index = _.findIndex(state.friendships, function(friendship) {
-            return friendship.data.attributes.friend.data.id === user.data.id
-        })
-
-        state.friendships[index].data.attributes.friend.data.attributes.status = 'online'
-    },
-    SET_OFFLINE_STATUS(state, user) {
-        let index = _.findIndex(state.friendships, function(friendship) {
-            return friendship.data.attributes.friend.data.id === user.data.id
-        })
-
-        state.friendships[index].data.attributes.friend.data.attributes.status = 'offline'
-    },
-    SET_FRIENDS_STATUS(state, users) {
-        state.friendships.filter((friendship) => {
-            _.findKey(users, function(user) {
-                if(user.data.id === friendship.data.attributes.friend.data.id) {
-                    friendship.data.attributes.friend.data.attributes.status = 'online'
-                }
-            })
-        })
-    }
 }
 
 const getters = {
     user: (state) => state.user,
     authCheck: (state) => state.authCheck,
     searchedUsers: (state) => state.searchedUsers,
-    friendships: (state) => state.friendships
 }
 
 export default {

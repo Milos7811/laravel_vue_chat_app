@@ -9,3 +9,7 @@
 a, li {
     text-decoration: none !important;
 }
+
+span {
+    opacity: 60%;
+}

@@ -22,7 +22,16 @@
                                     <UserAvatar :avatar="user.data.attributes.avatar" theme="theme"/>
                                     <h1 class="hover:text-theme hover:font-bold"> {{ user.data.attributes.name}} </h1>
                                 </div>
-                                <MessageSquareIcon v-if="! returnUser" @click="chat(user)"
+                                <UserXIcon v-if="! returnUser && showAddFriendIcon(user)"
+                                    @click="removeFriend(user)"
+                                    class="cursor-pointer stroke-2 mr-2 hover:stroke-theme-second"
+                                    size="1.3x" />
+                                <UserPlusIcon v-if="! returnUser && !showAddFriendIcon(user)"
+                                    @click="addFriend(user)"
+                                    class="cursor-pointer stroke-2 mr-2 hover:stroke-theme-second"
+                                    size="1.3x" />
+                                <MessageSquareIcon v-if="! returnUser"
+                                    @click="chat(user)"
                                     class="cursor-pointer stroke-2 hover:stroke-theme-second"
                                     size="1.3x"  />
 
@@ -45,7 +54,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Spinner from '../../Spinner'
-import { MessageSquareIcon, PlusIcon } from 'vue-feather-icons'
+import { MessageSquareIcon, PlusIcon, UserPlusIcon, UserXIcon  } from 'vue-feather-icons'
 import { events } from '../../../bus'
 import UserAvatar from '../../User/UserAvatar'
 
@@ -53,13 +62,15 @@ export default {
     name: 'SearchBar',
     components: {
         Spinner,
-        MessageSquareIcon,
+        PlusIcon,
+        UserXIcon,
         UserAvatar,
-        PlusIcon
+        UserPlusIcon,
+        MessageSquareIcon,
     },
     props: ['returnUser', 'filterUsers'],
     computed: {
-        ...mapGetters([ 'chats', 'searchedUsers' ]),
+        ...mapGetters([ 'chats', 'searchedUsers', 'friendships' ]),
     },
     data () {
         return {
@@ -71,6 +82,12 @@ export default {
     methods: {
         showPlusIcon(user) {
             return this.filterUsers.find(element => element.data.id === user.data.id)
+        },
+        showAddFriendIcon(user) {
+            let array = this.friendships.pending.concat(this.friendships.accepted)
+
+            return array.find(element => element.data.attributes.friend.data.id === user.data.id)
+
         },
         closeDropdown() {
             this.dropDown = false
@@ -114,6 +131,12 @@ export default {
         },
         returnedUser(user) {
             this.$emit('returnedUser', user)
+        },
+        addFriend(user) {
+            this.$store.dispatch('addFriend', user)
+        },
+        removeFriend(user) {
+            console.log(user)
         }
     },
 }
