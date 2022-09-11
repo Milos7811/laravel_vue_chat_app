@@ -7,7 +7,7 @@ use App\Models\Friendship;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateFriendshipRequest;
-use App\Notifications\FriendshipRequestNotification;
+use App\Notifications\Friendship\FriendshipRequestNotification;
 use App\Resources\Friendship\FriendshipResource;
 
 
@@ -23,7 +23,7 @@ class CreateFriendshipController extends Controller
 
         $user = User::whereId($request->input('friendId'))->first();
 
-        $user->notify(new FriendshipRequestNotification($friendship));
+        $user->notify(new FriendshipRequestNotification($friendship, auth()->user()));
 
         return new FriendshipResource($friendship);
     }

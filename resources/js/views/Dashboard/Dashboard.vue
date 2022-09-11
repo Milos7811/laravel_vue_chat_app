@@ -6,6 +6,8 @@
             <MessagesList v-if="currentChat != undefined"/>
             <FriendsList/>
 
+            <!-- <NotificationList/> -->
+
             <NewChatPopup/>
             <NewGroupChatPopup/>
         </div>
@@ -16,10 +18,10 @@
 </template>
 
 <script>
+import NotificationList from '../../components/Notification/NotificationList'
 import MessagesList from '../../components/Dashboard/Messages/MessagesList'
 import FriendsList from '../../components/Dashboard/Friends/FriendsList'
 import NewGroupChatPopup from '../../components/Popup/NewGroupChatPopup'
-import Notification from '../../components/Notification/Notification'
 import ChatsList from '../../components/Dashboard/Chats/ChatsList'
 import LogoutButton from '../../components/Others/LogoutButton'
 import NewChatPopup from '../../components/Popup/NewChatPopup'
@@ -29,14 +31,14 @@ import { mapGetters } from 'vuex';
 export default {
     name: "Dashboard",
     components: {
+    NotificationList,
     ChatsList,
     MessagesList,
     LogoutButton,
-    Notification,
     NewChatPopup,
     Spinner,
     NewGroupChatPopup,
-    FriendsList
+    FriendsList,
 },
     computed: {
         ...mapGetters(['loaded','config', 'currentChat'])

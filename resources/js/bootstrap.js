@@ -28,4 +28,10 @@ window.Echo = new Echo({
     wsHost: config.broadcastingHost,
 	wsPort: config.broadcastingPort,
     forceTLS: false,
+    // auth: {
+    //     headers: {
+    //         'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]')
+    //     },
+    // },
+
 });

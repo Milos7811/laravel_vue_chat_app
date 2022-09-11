@@ -27,6 +27,8 @@ const actions = {
                     commit('REMOVE_UNREADED_MESSAGES')
                 }
 
+                commit('SET_NOTIFICATIONS', response.data.data.relationships.notifications)
+
                 commit('SET_FRIENDSHIPS', response.data.data.relationships.friendships)
 
                 commit('SET_LOADED_TRUE')

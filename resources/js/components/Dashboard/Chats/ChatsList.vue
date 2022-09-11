@@ -7,6 +7,10 @@
              <div>
                  {{ user.data.attributes.name}}
              </div>
+             <div class="ml-2">
+                 <BellIcon size="1.2x"/>
+             </div>
+
         </div>
 
         <div class="bg-light-second my-2">
@@ -45,7 +49,7 @@ import SearchBar from './SearchBar'
 import Spinner from '../../Spinner'
 import { mapGetters } from 'vuex'
 import { events } from '../../../bus'
-import { UsersIcon } from 'vue-feather-icons'
+import { UsersIcon, BellIcon  } from 'vue-feather-icons'
 
 export default {
     name: 'ChatsList',
@@ -54,7 +58,8 @@ export default {
         Chat,
         SearchBar,
         UserAvatar,
-        UsersIcon
+        UsersIcon,
+        BellIcon
     },
     computed: {
         ...mapGetters([ 'chats' , 'user']),

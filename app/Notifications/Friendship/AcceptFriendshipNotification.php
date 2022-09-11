@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Friendship;
 
+use App\Models\User;
 use App\Models\Friendship;
-use App\Resources\Friendship\FriendshipResource;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Resources\Friendship\FriendshipNotificationResource;
 
-class FriendshipRequestNotification extends Notification implements ShouldQueue
+class AcceptFriendshipNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -19,6 +20,7 @@ class FriendshipRequestNotification extends Notification implements ShouldQueue
      */
     public function __construct(
         public Friendship $friendship,
+        public User $user,
     ){
     }
 
@@ -30,8 +32,9 @@ class FriendshipRequestNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['broadcast'];
     }
+
 
     /**
      * Get the array representation of the notification.
@@ -42,11 +45,12 @@ class FriendshipRequestNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'category' => 'friend-request',
+            'category' => 'friend-accept',
             'title' => 'Friend Request',
-            'description' => 'You have new friend rquest',
+            'description' => 'You have new friend rquest from',
             'data' => [
-                'friendship' => new FriendshipResource($this->friendship)
+                'action'     => 'accept-invitation',
+                'friendship' => new FriendshipNotificationResource($this->friendship, $this->user)
             ]
         ];
     }

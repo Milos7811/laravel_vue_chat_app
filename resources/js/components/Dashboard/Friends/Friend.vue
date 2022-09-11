@@ -15,10 +15,10 @@
 
             <div v-if="showAction" class="flex">
                 <div class="w-1/2 flex justify-center">
-                    <CheckIcon @click="responseToFriendship('accept')" class="cursor-pointer hover:stroke-theme-second" size="1.2x"/>
+                    <CheckIcon @click="acceptFriendship" class="cursor-pointer hover:stroke-theme-second" size="1.2x"/>
                 </div>
                 <div class="w-1/2 flex justify-center">
-                    <XIcon @click="responseToFriendship('reject')" class="cursor-pointer hover:stroke-theme-second" size="1.2x"/>
+                    <XIcon @click="cancelFriendship" class="cursor-pointer hover:stroke-theme-second" size="1.2x"/>
                 </div>
             </div>
 
@@ -35,10 +35,11 @@
 import UserAvatar from '../../User/UserAvatar';
 import UserStatusDot from '../../User/UserStatusDot';
 import { XIcon, CheckIcon  } from 'vue-feather-icons'
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'Friend',
-    props: [ 'friendship' ] ,
+    props: [ 'friendship',] ,
     components: {
         XIcon,
         CheckIcon,
@@ -46,20 +47,27 @@ export default {
         UserStatusDot,
     },
     computed: {
+        ...mapGetters([ 'user' ]),
         showAction () {
             return this.friendship.data.attributes.status  === 'pending' &&
-                !this.friendship.data.attributes.isAuthor
+                this.friendship.data.attributes.author !== this.user.data.id
         },
         showPendingText() {
             return this.friendship.data.attributes.status  === 'pending' &&
-                this.friendship.data.attributes.isAuthor
+                this.friendship.data.attributes.author === this.user.data.id
         }
     },
     methods: {
-        responseToFriendship (action) {
-            this.$store.dispatch('responseToFriendship', {
+        acceptFriendship () {
+            this.$store.dispatch('updateFriendshipStatus',{
                 friendshipId: this.friendship.data.id,
-                action: action
+                status: 'accept'
+            })
+        },
+        cancelFriendship () {
+            this.$store.dispatch('updateFriendshipStatus',{
+                friendshipId: this.friendship.data.id,
+                status: 'reject'
             })
         }
     }

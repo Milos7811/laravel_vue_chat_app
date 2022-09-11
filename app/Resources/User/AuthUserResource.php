@@ -22,8 +22,11 @@ class AuthUserResource extends JsonResource
                     'status' => $this->status
                 ],
                 'relationships' => [
-                    'readNotifications'    => new NotificationCollection($this->readNotifications),
-                    'unreadNotifications' => new NotificationCollection($this->unreadNotifications),
+
+                    'notifications' => [
+                        'readNotifications'    => new NotificationCollection($this->readNotifications),
+                        'unreadNotifications' => new NotificationCollection($this->unreadNotifications),
+                    ],
 
                     'friendships' => [
                         $this->mergeWhen($this->friendships, fn () => [

@@ -1,3 +1,6 @@
+import axios from 'axios'
+import Vue from 'vue'
+
 const defaultState = {
     friendships: undefined
 }
@@ -16,25 +19,42 @@ const actions = {
             })
     },
 
-    responseToFriendship: ({commit}, data) => {
+    updateFriendshipStatus: ({commit}, data) => {
+
         axios.
             post('/api/user/friendship-status', {
                 friendshipId: data.friendshipId,
-                status: data.action
+                status: data.status
             })
-            .then((response) => {
 
-                if(response.data.data.attributes.status === 'accepted') {
+            .then((response) => {
+                commit('REMOVE_FRIENDSHIP', {
+                    data: response.data,
+                    type: 'pending'
+                })
+
+                if(data.status === 'accept') {
                     commit('PUSH_FRIENDSHIP', {
                         data: response.data,
                         type: 'accepted'
                     })
                 }
 
-                commit('REMOVE_FRIENDSHIP', {
-                    data: response.data,
-                    type: 'pending'
-                })
+                if(data.status === 'reject' && response.data.data.attributes.status == 'accepted') {
+                    commit('REMOVE_FRIENDSHIP', {
+                        data: response.data,
+                        type: 'accepted'
+                    })
+                }
+
+                if(Vue.prototype.$findNotification(data.friendshipId)) {
+                    commit('CHANGE_NOTIFICATION_STATUS', {
+                        notification : Vue.prototype.$findNotification(data.friendshipId),
+                        status: data.status
+                    })
+                }
+
+
             })
     },
 }
@@ -70,13 +90,13 @@ const mutations = {
         }
     },
     REMOVE_FRIENDSHIP(state, data) {
-        if(data.type === 'pending') {
+        if(data.type === 'pending' || 'rejected') {
             state.friendships.pending =  state.friendships.pending.filter(
                 friendship => data.data.data.id !== friendship.data.id
             )
         }
 
-        if(data.type === 'accepted') {
+        if(data.type === 'accepted' || 'rejected') {
             state.friendships.accepted =  state.friendships.accepted.filter(
                 friendship => data.data.data.id !== friendship.data.id
             )

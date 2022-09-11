@@ -23,7 +23,7 @@
                                     <h1 class="hover:text-theme hover:font-bold"> {{ user.data.attributes.name}} </h1>
                                 </div>
                                 <UserXIcon v-if="! returnUser && showAddFriendIcon(user)"
-                                    @click="removeFriend(user)"
+                                    @click="cancelFriendship(user)"
                                     class="cursor-pointer stroke-2 mr-2 hover:stroke-theme-second"
                                     size="1.3x" />
                                 <UserPlusIcon v-if="! returnUser && !showAddFriendIcon(user)"
@@ -134,9 +134,18 @@ export default {
         },
         addFriend(user) {
             this.$store.dispatch('addFriend', user)
+
+            this.closeDropdown()
         },
-        removeFriend(user) {
-            console.log(user)
+        cancelFriendship(user) {
+            let friendship = this.$findFriendship(user.data.id)
+
+            this.$store.dispatch('updateFriendshipStatus',{
+                friendshipId: friendship.data.id,
+                status: 'reject'
+            })
+
+            this.closeDropdown()
         }
     },
 }

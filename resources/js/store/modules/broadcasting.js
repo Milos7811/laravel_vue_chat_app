@@ -1,5 +1,7 @@
+import Vue from 'vue'
 
 const defaultState = {
+    notifications : []
 }
 
 const actions = {
@@ -22,6 +24,47 @@ const actions = {
         })
         .notification((notification) => {
             console.log(notification)
+            if(notification.category === 'friend-request') {
+
+                commit('PUST_NOTIFICATION', {
+                    data: {
+                        type: notification.category,
+                        id: notification.id,
+                        attributes: {
+                            category: notification.category,
+                            title: notification.title,
+                            description: notification.description,
+                            payload: {
+                                action: notification.data.action,
+                                friendship: notification.data.friendship
+                            }
+                        },
+                    },
+                })
+                commit('PUSH_FRIENDSHIP', {
+                    type : 'pending',
+                    data : notification.data.friendship
+                })
+            }
+
+            if(notification.category === 'friend-accept') {
+                commit('REMOVE_FRIENDSHIP', {
+                    data: notification.data.friendship,
+                    type: 'pending'
+                })
+
+                commit('PUSH_FRIENDSHIP', {
+                    data: notification.data.friendship,
+                    type: 'accepted'
+                })
+            }
+
+            if(notification.category === 'friend-cancel') {
+                commit('REMOVE_FRIENDSHIP', {
+                    data: notification.data.friendship,
+                    type: notification.data.friendship.data.attributes.status
+                })
+            }
         })
 
         Echo.join('User.Presence')
@@ -42,11 +85,29 @@ const actions = {
 }
 
 const mutations = {
+    SET_NOTIFICATIONS(state, data) {
+        state.notifications = data
+    },
+    PUST_NOTIFICATION(state, data) {
+        state.notifications.unreadNotifications.push(data)
+    },
+    CHANGE_NOTIFICATION_STATUS(state, data) {
+        state.notifications.unreadNotifications.map(notification => {
+            if(notification.data.id === data.notification.data.id) {
+                notification.data.attributes.payload.friendship.data.attributes.status = data.status
+            }
+        })
 
+        state.notifications.readNotifications.map(notification => {
+            if(notification.data.id === data.notification.data.id) {
+                notification.data.attributes.payload.friendship.data.attributes.status = data.status
+            }
+        })
+    }
 }
 
 const getters = {
-
+    notifications: (state) => state.notifications,
 }
 
 export default {
