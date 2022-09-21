@@ -1,8 +1,8 @@
 {
     "/js/main.js": "/js/main.js",
-    "/chunks//sign-in.js": "/chunks//sign-in.js?id=733fdf45d64fe447",
-    "/chunks/sign-up.js": "/chunks/sign-up.js?id=26315a71b91fbd88",
-    "/chunks/dashbaord.js": "/chunks/dashbaord.js?id=372f6b5246903876",
+    "/chunks//sign-in.js": "/chunks//sign-in.js?id=515a066e2848fee4",
+    "/chunks/sign-up.js": "/chunks/sign-up.js?id=e32a85d39ea2ab0a",
+    "/chunks/dashbaord.js": "/chunks/dashbaord.js?id=f4ae654151dc8c6e",
     "/css/app.css": "/css/app.css",
     "/css/tailwind.css": "/css/tailwind.css"
 }
