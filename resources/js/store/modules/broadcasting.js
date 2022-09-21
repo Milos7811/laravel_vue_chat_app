@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { events } from '../../bus'
 
 const defaultState = {
     notifications : []
@@ -57,12 +57,23 @@ const actions = {
                     data: notification.data.friendship,
                     type: 'accepted'
                 })
+
+                events.$emit('light-notification:open', {
+                    title: 'Friendship was accepted.',
+                    description: `${notification.data.friendship.data.attributes.friend.data.attributes.name} was accepted your Friendship request.`
+                })
+
             }
 
             if(notification.category === 'friend-cancel') {
                 commit('REMOVE_FRIENDSHIP', {
                     data: notification.data.friendship,
                     type: notification.data.friendship.data.attributes.status
+                })
+
+                events.$emit('light-notification:open', {
+                    title: 'Friendship was rejected.',
+                    description: `${notification.data.friendship.data.attributes.friend.data.attributes.name} rejected your Friendship request.`
                 })
             }
         })

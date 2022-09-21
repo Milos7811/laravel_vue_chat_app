@@ -7,6 +7,7 @@
             <FriendsList/>
 
             <!-- <NotificationList/> -->
+            <LightNotification/>
 
             <NewChatPopup/>
             <NewGroupChatPopup/>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+    import LightNotification from '../../components/Notification/LightNotification'
 import NotificationList from '../../components/Notification/NotificationList'
 import MessagesList from '../../components/Dashboard/Messages/MessagesList'
 import FriendsList from '../../components/Dashboard/Friends/FriendsList'
@@ -31,14 +33,15 @@ import { mapGetters } from 'vuex';
 export default {
     name: "Dashboard",
     components: {
+    LightNotification,
+    NewGroupChatPopup,
     NotificationList,
-    ChatsList,
     MessagesList,
     LogoutButton,
     NewChatPopup,
-    Spinner,
-    NewGroupChatPopup,
     FriendsList,
+    ChatsList,
+    Spinner,
 },
     computed: {
         ...mapGetters(['loaded','config', 'currentChat'])

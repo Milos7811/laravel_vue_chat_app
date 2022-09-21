@@ -1,6 +1,8 @@
 <template>
     <div class="w-1/3 h-full flex flex-col bg-light-second">
 
+        <button @click="test">test</button>
+
         <div v-if="user" class=" min-h-[50px] flex items-center ml-2">
              <UserAvatar :avatar="user.data.attributes.avatar"/>
              <!-- <input type="file" accept="image/*" @change="uploadAvatar"/> -->
@@ -65,6 +67,12 @@ export default {
         ...mapGetters([ 'chats' , 'user']),
     },
     methods: {
+        test() {
+            events.$emit('light-notification:open', {
+                    title: 'Friendship was accepted.',
+                    description: `Milos Holba was accepted your friendship request.`
+                })
+        },
         getChat (id) {
             this.$store.dispatch('getChat', id)
 

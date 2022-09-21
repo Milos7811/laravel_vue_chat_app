@@ -23,7 +23,6 @@ class UpdateFriendshipStatusController extends Controller
     {
         $friendship = Friendship::whereId($request->input('friendshipId'))
             ->first();
-        $user = '';
 
         $user = auth()->id() === $friendship->user_id ? $friendship->friendsFrom : $friendship->friendsTo;
 
