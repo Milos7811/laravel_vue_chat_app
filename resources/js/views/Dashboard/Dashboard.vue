@@ -1,10 +1,12 @@
 <template>
     <div class="h-full">
-        <div v-if="loaded" class="flex relative h-full bg-light text-light-text">
-            <LogoutButton/>
-            <ChatsList/>
-            <MessagesList v-if="currentChat != undefined"/>
-            <FriendsList/>
+        <div v-if="loaded" class="h-full bg-light text-light-text">
+            <div class="dashboard h-full w-full absolute grid-cols-{1fr 2fr 1fr}">
+                <!-- <LogoutButton/> -->
+                <ChatsList/>
+                <MessagesList v-show="showMessages"/>
+                <FriendsList v-show="showFriends"/>
+            </div>
 
             <!-- <NotificationList/> -->
             <LightNotification/>
@@ -43,6 +45,12 @@ export default {
     ChatsList,
     Spinner,
 },
+    data () {
+        return {
+            showMessages: true,
+            showFriends: true,
+        }
+    },
     computed: {
         ...mapGetters(['loaded','config', 'currentChat'])
     },
@@ -53,5 +61,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    .dashboard {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
 </style>

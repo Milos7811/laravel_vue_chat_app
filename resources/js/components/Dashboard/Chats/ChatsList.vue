@@ -1,11 +1,9 @@
 <template>
-    <div class="w-1/3 h-full flex flex-col bg-light-second">
+    <div class="max-h-[100vh] flex flex-col bg-light-second">
 
-        <button @click="test">test</button>
-
+        <!-- <input type="file" accept="image/*" @change="uploadAvatar"/> -->
         <div v-if="user" class=" min-h-[50px] flex items-center ml-2">
              <UserAvatar :avatar="user.data.attributes.avatar"/>
-             <!-- <input type="file" accept="image/*" @change="uploadAvatar"/> -->
              <div>
                  {{ user.data.attributes.name}}
              </div>
@@ -24,8 +22,9 @@
             </div>
         </div>
 
-        <div class="overflow-auto">
-            <div v-if="chats" class="p-2" >
+        <!-- Chat List -->
+        <div v-if="chats" class="h-full overflow-auto">
+            <div class="p-2" >
                 <div v-for="chat of chats"
                     :key="chat.data.id"
                     @click="getChat(chat.data.id)">
@@ -35,6 +34,7 @@
             </div>
         </div>
 
+        <!-- Empty Chat -->
         <div v-if="!chats" class="w-full h-full p-2 flex justify-center items-center">
             <div class="w-[120px] h-[50px] bg-light flex justify-center items-center border-0 rounded-lg text-light-second font-bold">
                 Empty chats

@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->uuid('user_id');
             $table->foreign('chat_id')->references('id')->on('chats');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('message');
+            $table->longText('message');
             $table->timestamps();
 
             $table->charset = 'utf8mb4';

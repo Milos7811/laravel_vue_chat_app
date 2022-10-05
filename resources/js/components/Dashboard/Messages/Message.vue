@@ -7,9 +7,8 @@
 
             </div>
 
-            <div class="border-0 rounded-lg p-3 drop-shadow-lg shadow-xl"
-                :class="{'bg-theme-second' : isUserMessage }">
-                <!-- <h1 v-if="!isUserMessage"> {{ message.relationships.owner.attributes.name}} </h1> -->
+            <div class="border-0 rounded-lg p-3 drop-shadow-lg shadow-xl max-w-[350px] h-auto break-words"
+                :class="[isUserMessage ? 'bg-theme-second ml-[80px]' : 'mr-[20px]']">
                 <h2> {{ message.attributes.message }}</h2>
             </div>
         </div>

@@ -10,20 +10,20 @@
                 <div>{{ this.chat.data.attributes.unreadedMessagesCount }}</div>
             </div>
 
-            <div class="flex flex-row items-center overflow-hidden ">
+            <div class="flex flex-row items-center overflow-hidden max-w-full">
 
                 <UserAvatar :members="chat.data.relationships.members" theme="theme"/>
 
-                <div class="flex flex-col px-2">
+                <div class="px-2">
                     <div class="flex flex-row">
                         <div v-for="member of chat.data.relationships.members" :key="member.data.id">
-                            <div class="whitespace-nowrap mr-1 font-bold" v-if="member.data.id !== user.data.id">
-                                {{ member.data.attributes.name }},
+                            <div class="whitespace-nowrap mr-1 font-bold text-ellipsis overflow-hidden" v-if="member.data.id !== user.data.id">
+                                {{ userName }}
                             </div>
                         </div>
                     </div>
                     <div v-if="chat.data.relationships.messages.length > 0" class="cursor-pointer text-light-second">
-                        {{ chat.data.relationships.messages[chat.data.relationships.messages.length -1].data.attributes.message}}
+                        {{ message(chat.data.relationships.messages[chat.data.relationships.messages.length -1].data.attributes.message) }}
                     </div>
                 </div>
             </div>
@@ -48,8 +48,15 @@ export default {
             return this.chat.data.attributes.unreadedMessagesCount > 0 &&
                 this.currentChat.data.id !== this.chat.data.id;
         },
+        userName() {
+            return this.chat.data.relationships.messages[this.chat.data.relationships.messages.length -1].data.relationships.owner.data.attributes.name
+        },
     },
-    components: { UserAvatar }
+    methods: {
+        message (string) {
+            return _.truncate(string, 25)
+        },
+    },
 }
 </script>
 

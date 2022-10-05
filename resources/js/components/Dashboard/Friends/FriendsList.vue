@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[300px] bg-light-second">
+    <div class="max-h-[100vh] bg-light-second">
         <div class="min-h-[50px]  flex items-center pl-2">
             Friend List
         </div>

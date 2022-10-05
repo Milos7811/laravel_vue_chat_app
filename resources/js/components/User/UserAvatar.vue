@@ -1,7 +1,8 @@
 <template>
     <div class="mr-4">
         <!-- Members Avatars -->
-        <div v-if="members" class="flex flex-row relative w-[70px]">
+        <div v-if="members" class="flex flex-row relative w-[70px]"
+            :class="{'justify-center' : members.length === 2}">
             <div v-for="(member) of showedMembers" :key="member.id" class="members">
                 <div class="w-10 h-10 bg-theme border-2 rounded-full"
                     :class="`border-${theme}`">
@@ -89,13 +90,5 @@ export default {
         margin-right: -20px;
     }
 }
-.wrapper:nth-child(1) {
-    // margin-left:0px !important;
-}
-
-.wrapper:last-child {
-    // margin-right: 10px;
-}
-
 
 </style>
