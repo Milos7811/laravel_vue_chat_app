@@ -1,7 +1,16 @@
 <template>
-    <div class="max-h-[100vh] bg-light-second">
-        <div class="min-h-[50px]  flex items-center pl-2">
-            Friend List
+    <div v-if="showFriendList || !dinamicFriendList" class="max-h-[100vh] bg-light-second"
+        :class="{'absolute h-[100vh] w-[250px] right-0 z-30' : interactiveList }">
+        <div class="flex justify-between">
+            <div class="min-h-[50px]  flex items-center pl-2">
+                Friend List
+            </div>
+
+            <div v-if="dinamicFriendList"
+                @click="visibleFriendList"
+                class="flex items-center mr-2 px-2 cursor-pointer">
+                <ChevronsRightIcon size="1.3x"/>
+            </div>
         </div>
 
         <div>
@@ -51,16 +60,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import Friend from './Friend'
-import { ArrowDownIcon } from 'vue-feather-icons'
+import { ArrowDownIcon , ChevronsRightIcon  } from 'vue-feather-icons'
 
 export default {
     name: 'FriendsList',
-    computed: {
-        ...mapGetters([ 'friendships' ])
-    },
     components: {
         Friend,
-        ArrowDownIcon
+        ArrowDownIcon,
+        ChevronsRightIcon,
     },
     data () {
         return {
@@ -69,11 +76,20 @@ export default {
             pendingShow: undefined
         }
     },
+    computed: {
+        ...mapGetters([ 'friendships' , 'showFriendList', 'dinamicFriendList']),
+        interactiveList () {
+            return window.screen.width < 768
+        }
+    },
     methods: {
         toggleShow (type) {
             this[type] = this[type] ? false : true;
 
             localStorage.setItem(type, this[type])
+        },
+        visibleFriendList () {
+            this.$store.commit('TOGGLE_SHOW_FRIENDLIST')
         }
     },
     created () {

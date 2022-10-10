@@ -1,5 +1,6 @@
 <template>
-    <div v-if="showMessages" class="max-h-[100vh]">
+    <div v-if="showMessageList" class="max-h-[100vh] max-w-[100vh] bg-light"
+        :class="{'absolute z-10 w-full' : oneListDashboard }">
 
         <div class="w-full h-full" v-if="currentChat === undefined">
             <div class="w-full h-full p-2 flex justify-center items-center">
@@ -43,18 +44,10 @@ export default {
         MessageHeader,
     },
     computed: {
-        ...mapGetters(['currentChat']),
+        ...mapGetters(['currentChat', 'showMessageList', 'oneListDashboard']),
         messages() {
             return this.currentChat.data.relationships.messages
         },
-        showMessages() {
-            return window.innerWidth >= 768
-        }
-    },
-    data () {
-        return {
-            chat: '',
-        }
     },
 }
 </script>

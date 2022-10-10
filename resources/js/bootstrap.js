@@ -27,11 +27,12 @@ window.Echo = new Echo({
     cluster: config.broadcastingCluster,
     wsHost: config.broadcastingHost,
 	wsPort: config.broadcastingPort,
+    wssPort: config.broadcastingPort,
     forceTLS: false,
-    // auth: {
-    //     headers: {
-    //         'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]')
-    //     },
-    // },
-
+    enabledTransports: ['ws', 'wss'],
+    auth: {
+        headers: {
+            'X-CSRF-Token': "CSRF_TOKEN"
+         }
+      }
 });

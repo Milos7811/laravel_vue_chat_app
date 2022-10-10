@@ -64,7 +64,7 @@ export default {
         BellIcon
     },
     computed: {
-        ...mapGetters([ 'chats' , 'user']),
+        ...mapGetters([ 'chats' , 'user', 'oneListDashboard']),
     },
     methods: {
         test() {
@@ -77,6 +77,10 @@ export default {
             this.$store.dispatch('getChat', id)
 
             events.$emit('message-input:clear')
+            console.log('test')
+            if(this.oneListDashboard) {
+                this.$store.commit('TOGGLE_SHOW_MESSAGELIST', true)
+            }
         },
         uploadAvatar(event) {
             this.$store.dispatch('uploadAvatar', event)

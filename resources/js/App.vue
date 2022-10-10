@@ -22,6 +22,15 @@ export default {
         if(config.authCheck && this.$route.name !== null) {
             this.$router.push({name: 'Dashboard'})
         }
+
+        if(window.screen.width <= 768) {
+            this.$store.commit('SET_DINAMIC_FRIENDLIST')
+        }
+
+        if(window.screen.width <= 640) {
+            this.$store.commit('SET_ONE_LIST_DASHBOARD')
+            this.$store.commit('TOGGLE_SHOW_MESSAGELIST', false)
+        }
     },
 }
 </script>

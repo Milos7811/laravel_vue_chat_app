@@ -1,18 +1,20 @@
 <template>
-    <div class="h-full">
+    <div class="h-full w-full">
         <div v-if="loaded" class="h-full bg-light text-light-text">
-            <div class="dashboard h-full w-full absolute grid-cols-{1fr 2fr 1fr}">
+            <div class="dashboard h-full absolute ">
                 <!-- <LogoutButton/> -->
                 <ChatsList/>
-                <MessagesList v-show="showMessages"/>
-                <FriendsList v-show="showFriends"/>
+                <MessagesList/>
+                <FriendsList/>
             </div>
 
             <!-- <NotificationList/> -->
             <LightNotification/>
+            <FriendListToggle/>
 
             <NewChatPopup/>
             <NewGroupChatPopup/>
+
         </div>
 
         <!-- <Notification/> -->
@@ -31,6 +33,7 @@ import LogoutButton from '../../components/Others/LogoutButton'
 import NewChatPopup from '../../components/Popup/NewChatPopup'
 import Spinner from '../../components/Spinner'
 import { mapGetters } from 'vuex';
+import FriendListToggle from '../../components/Dashboard/FriendListToggle'
 
 export default {
     name: "Dashboard",
@@ -44,6 +47,7 @@ export default {
     FriendsList,
     ChatsList,
     Spinner,
+    FriendListToggle
 },
     data () {
         return {
@@ -64,5 +68,18 @@ export default {
     .dashboard {
         display: grid;
         grid-template-columns: 1fr 2fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard {
+            grid-template-columns: 1fr 2fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .dashboard {
+            grid-template-columns: 1fr;
+            width: 100%;
+        }
     }
 </style>
