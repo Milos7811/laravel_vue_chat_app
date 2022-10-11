@@ -12,6 +12,8 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <link rel="icon" href="{{ url('logo/vch_logo.png') }}">
+
         <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ mix('css/tailwind.css') }}" rel="stylesheet" type="text/css">
 

@@ -15,6 +15,9 @@
                 <div> Dashboard</div>
            </router-link>
        </div>
+       <div class="flex justify-center items-center h-[100vh]">
+           <img src="/logo/vch_logo.png">
+       </div>
     </div>
 </template>
 
