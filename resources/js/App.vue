@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen bg-gradient-to-r bg-light font-lato font-nunito text-light-text">
+    <div class="min-h-[100vh] max-w-screen bg-gradient-to-r bg-light font-lato font-nunito text-light-text">
         <router-view/>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <div v-if="isVisible"
         @click.self="closePopup"
-        class="bg-black absolute h-full w-full bg-opacity-50 flex justify-center items-center">
+        class="bg-black absolute h-full w-full bg-opacity-50 flex justify-center items-center z-50 p-2">
         <div class="w-[500px]  bg-white border-0 rounded-xl ">
             <slot></slot>
         </div>

@@ -54,7 +54,11 @@ export default {
     },
     methods: {
         message (string) {
-            return _.truncate(string, 25)
+            if(window.innerWidth < 1220) {
+                return _.truncate(string, {'length': 18,})
+            }
+
+            return _.truncate(string, {'length': 25,})
         },
     },
 }

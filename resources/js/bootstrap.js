@@ -30,9 +30,4 @@ window.Echo = new Echo({
     wssPort: config.broadcastingPort,
     forceTLS: false,
     enabledTransports: ['ws', 'wss'],
-    auth: {
-        headers: {
-            'X-CSRF-Token': "CSRF_TOKEN"
-         }
-      }
 });

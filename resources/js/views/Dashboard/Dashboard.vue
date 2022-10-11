@@ -1,8 +1,8 @@
 <template>
-    <div class="h-full w-full">
+    <div class="h-full">
         <div v-if="loaded" class="h-full bg-light text-light-text">
-            <div class="dashboard h-full absolute ">
-                <!-- <LogoutButton/> -->
+            <div class="dashboard h-full w-full absolute ">
+                <LogoutButton/>
                 <ChatsList/>
                 <MessagesList/>
                 <FriendsList/>
