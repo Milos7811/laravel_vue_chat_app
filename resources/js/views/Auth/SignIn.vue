@@ -1,12 +1,13 @@
 <template>
-     <ValidationObserver
-        ref="log_in"
-        v-slot="{ invalid }"
-        tag="form"
-        v-on:keydown.enter="login"
-        class="flex flex-col justify-center items-end h-screen m-auto">
+    <div class="h-full">
+        <ValidationObserver
+            ref="log_in"
+            v-slot="{ invalid }"
+            tag="form"
+            v-on:keydown.enter="login"
+            class="flex flex-col justify-center items-end h-full m-auto ">
 
-         <div class="mx-auto">
+            <div class="mx-auto">
             <div class="flex flex-col items-end ">
                 <div class="flex flex-row items-center wrapper my-2">
                     <label for="email" class="mr-4 text-xl">Email:</label>
@@ -47,9 +48,16 @@
                 </div>
             </div>
             </div>
-        <Button @click.native="login" class="mx-auto mt-20 bg-theme-second">Login</Button>
+        <div class="w-full flex justify-center">
+            <router-link class="font-bold p-2 hover:text-theme-second" :to="{ name:'SignUp'}">
+                Register account
+            </router-link>
+        </div>
+
+        <Button @click.native="login" class="mx-auto mt-16 bg-theme-second">Login</Button>
 
     </ValidationObserver>
+    </div>
 </template>
 
 <script>

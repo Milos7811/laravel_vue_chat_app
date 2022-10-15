@@ -47,7 +47,7 @@ const actions = {
         })
     },
 
-    uploadAvatar: ({}, event) => {
+    uploadAvatar: ({commit}, event) => {
 
         let data = new FormData()
 
@@ -62,8 +62,9 @@ const actions = {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            .then(() => {
-                console.log('odoslabne')
+            .then((response) => {
+                // console.log(response)
+                commit('SET_USER_AVATAR', response.data)
             })
     },
 
@@ -104,6 +105,9 @@ const mutations = {
         state.user = undefined
         state.friendships = undefined
     },
+    SET_USER_AVATAR (state, avatar) {
+        state.user.data.attributes.avatar = avatar
+    }
 }
 
 const getters = {

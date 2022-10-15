@@ -1,5 +1,5 @@
 <template>
-    <div v-if="showMessageList" class="max-h-[100vh] max-w-[100vh] bg-light"
+    <div v-if="showMessageList" class="min-h-[100%] mw-[100%] bg-light"
         :class="{'absolute z-10 w-full' : oneListDashboard }">
 
         <div class="w-full h-full" v-if="currentChat === undefined">
@@ -10,7 +10,8 @@
             </div>
         </div>
 
-        <div v-if="currentChat" class="w-full h-full flex flex-col">
+        <div v-if="currentChat" class="w-full flex flex-col h-full"
+            :class="{'absolute' : oneListDashboard}">
             <MessageHeader/>
 
             <div class="flex-auto overflow-auto">

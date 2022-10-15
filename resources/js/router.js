@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
         if (!isAuthenticated) {
             next({
                 name: 'SignIn',
-                query: { redirect: to.fullPath },
+                // query: { redirect: to.fullPath },
             })
         } else {
             next()

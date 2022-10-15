@@ -2,10 +2,10 @@
     <transition name="fade" appear>
         <div
             class="flex my-4 cursor-pointer p-2 border-0 rounded-lg relative "
-            :class="{'bg-theme-second drop-shadow-lg shadow-md shadow-theme-second' : currentChat.data.id === chat.data.id, 'font-bold' : dotActive  }">
+            :class="{'bg-theme-second drop-shadow-lg shadow-md shadow-theme-second' : currentChat.data.id === chat.data.id, 'font-bold' : newMessageCount  }">
 
             <!-- Notification dot -->
-            <div v-if="dotActive"
+            <div v-if="newMessageCount"
                 class="notification-dot w-5 h-5 border-0 z-10 rounded-full bg-theme-second animate-pulse absolute flex justify-center items-center">
                 <div>{{ this.chat.data.attributes.unreadedMessagesCount }}</div>
             </div>
@@ -44,12 +44,18 @@ export default {
     },
     computed: {
         ...mapGetters(["currentChat", "user"]),
-        dotActive() {
+        newMessageCount() {
             return this.chat.data.attributes.unreadedMessagesCount > 0 &&
                 this.currentChat.data.id !== this.chat.data.id;
         },
         userName() {
-            return this.chat.data.relationships.messages[this.chat.data.relationships.messages.length -1].data.relationships.owner.data.attributes.name
+            let name = undefined
+            this.chat.data.relationships.members.forEach((member) => {
+                if(member.data.attributes.name !== this.user.data.attributes.name) {
+                    name =  member.data.attributes.name
+                }
+            })
+            return name
         },
     },
     methods: {

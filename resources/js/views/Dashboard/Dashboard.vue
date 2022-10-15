@@ -2,7 +2,7 @@
     <div class="h-full">
         <div v-if="loaded" class="h-full bg-light text-light-text">
             <div class="dashboard h-full w-full absolute ">
-                <LogoutButton/>
+                <!-- <LogoutButton/> -->
                 <ChatsList/>
                 <MessagesList/>
                 <FriendsList/>

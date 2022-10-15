@@ -1,6 +1,11 @@
-<h1 align="center" > Laravel Vue Chat </h1>
+<h1 align="center" > [Laravel Vue Chat](https://vuechat.eu/) </h1>
 
 <p> Little live chat application with friendships. </p>
+
+<p>Application is still in development.</p>
+
+### Live Demo
+- [VueChat](https://vuechat.eu/)
 
 ### Functions
 <p> Live Chat</p>

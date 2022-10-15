@@ -14,7 +14,7 @@
                 </div>
 
                 <!-- Dropdown -->
-                <div @click.stop v-if="dropDown" class="bg-white shadow-xl max-h-[300px] overflow-auto absolute w-full h-atuo border-0 rounded-lg z-20 top-[50px]">
+                <div @click.stop v-if="dropDown" class="bg-white shadow-xl max-h-[300px] w-[300px] overflow-auto absolute  h-atuo border-0 rounded-lg z-20 top-[50px]">
                     <div class="w-full h-full">
                         <div v-for="user of searchedUsers" :key="user.data.id" class="cursor-pointer">
                             <div class="flex justify-between items-center p-2">

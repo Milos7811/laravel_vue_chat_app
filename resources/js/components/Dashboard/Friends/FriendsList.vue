@@ -1,7 +1,7 @@
 <template>
     <transition name="slide">
         <div v-if="showFriendList || !dinamicFriendList" class="max-h-[100vh] bg-light-second"
-            :class="{'absolute h-[100vh] w-[250px] right-0 z-30 border-l-2 border-[#a1a1a1]' : interactiveList }">
+            :class="{'absolute h-[100vh] w-[250px] right-0 z-30 drop-shadow-2xl' : interactiveList }">
             <div class="flex justify-between">
                 <div class="min-h-[50px]  flex items-center pl-2">
                     Friend List

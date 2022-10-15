@@ -36,15 +36,17 @@ export default {
             }
         },
         newMessage () {
-            axios.
-                post('api/chat/new-message', {chat_id: this.currentChat.data.id, message: this.message})
-                    .then((response) => {
-                        this.$store.commit('PUSH_NEW_MESSAGE', response.data)
+            if(this.message) {
+                axios.
+                    post('api/chat/new-message', {chat_id: this.currentChat.data.id, message: this.message})
+                        .then((response) => {
+                            this.$store.commit('PUSH_NEW_MESSAGE', response.data)
 
-                        this.message = ''
+                            this.message = ''
 
-                        this.$store.commit('PUSH_CHAT_TO_TOP', this.currentChat.data.id)
-                    })
+                            this.$store.commit('PUSH_CHAT_TO_TOP', this.currentChat.data.id)
+                        })
+            }
         },
         newChat () {
             this.$store.dispatch('createNewChat', {message: this.message, usersId: this.usersId})

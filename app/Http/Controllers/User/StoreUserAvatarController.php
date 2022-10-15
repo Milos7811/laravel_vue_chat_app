@@ -15,7 +15,9 @@ class StoreUserAvatarController extends Controller
     {
         $avatar = request()->file('avatar');
 
-        $avatarName = Str::uuid() . '.' . $avatar->getClientOriginalExtension();
+        $extension = $avatar->getClientOriginalExtension();
+
+        $avatarName = Str::uuid() . '.' . $extension;
 
         $userId = Auth::id();
 
@@ -25,5 +27,7 @@ class StoreUserAvatarController extends Controller
             ->update([
                 'avatar' => $avatarName
             ]);
+
+       return 'data:' . $extension . ';base64, ' . base64_encode(file_get_contents($avatar));
     }
 }
