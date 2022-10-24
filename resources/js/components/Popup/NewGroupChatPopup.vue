@@ -3,7 +3,7 @@
 
         <PopupHeader title="New Group Chat"/>
 
-        <PopupContent>
+        <PopupContent @keydown.enter="newMessage">
             <SearchBar :return-user="true" :filter-users="users" @returnedUser="addUser($event)"/>
 
             <div class="min-h-[70px] h-[160px] overflow-auto border-2 my-3 rounded-lg">
@@ -21,7 +21,7 @@
             </div>
 
             <div class="my-2">
-                <MessageInput message-type="new-chat" :users-id="getUsersIds" />
+                <MessageInput @keydown.native.enter="newMessage" @query="setMessage" @send="newMessage"/>
             </div>
         </PopupContent>
 
@@ -63,7 +63,8 @@ export default {
 },
     data () {
         return {
-            users: []
+            users: [],
+            message: ''
         }
     },
     computed: {
@@ -78,6 +79,9 @@ export default {
         }
     },
     methods: {
+        setMessage(query) {
+            this.message = query
+        },
         addUser (user) {
             this.users.push(user)
         },
@@ -86,6 +90,14 @@ export default {
         },
         closePopup() {
             events.$emit('popup:close')
+        },
+        newMessage() {
+            this.$store.dispatch('createNewChat', {
+                usersId : this.getUsersIds,
+                message: this.message
+            })
+
+            this.closePopup()
         }
     },
     mounted () {

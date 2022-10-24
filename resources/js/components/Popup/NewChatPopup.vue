@@ -9,7 +9,7 @@
                     <h1> {{ user.data.attributes.name}}</h1>
                 </div>
 
-                <MessageInput message-type="new-chat" :users-id="[user.data.id]"/>
+                <MessageInput @keypress.native.enter="createNewChat" @query="setMessage" @send="createNewChat"/>
             </div>
         </PopupContent>
 
@@ -47,19 +47,33 @@ export default {
     data () {
         return {
             user: undefined,
+            message: '',
             loading: false,
         }
     },
     methods: {
+        setMessage(message) {
+            this.message = message
+        },
         closePopup() {
             events.$emit('popup:close')
-        }
+        },
+        createNewChat () {
+            this.$store.dispatch('createNewChat', {
+                usersId : [this.user.data.id],
+                message: this.message
+            })
+
+            this.closePopup()
+        },
     },
     mounted () {
         events.$on('popup:open', data => {
             if(data.name === 'new-chat')
                 this.user = data.payload.user
         })
+
+        events.$on('popup:close', () => { this.user = undefined, this.message = '' })
     }
 
 }

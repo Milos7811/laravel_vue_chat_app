@@ -25,7 +25,7 @@
                </div>
             </div>
 
-            <MessageInput/>
+            <MessageInput @keypress.native.enter="sendMessage" @query="setMessage" @send="sendMessage"/>
         </div>
 
     </div>
@@ -36,6 +36,7 @@ import MessageInput from './MessageInput';
 import MessageHeader from './MessageHeader'
 import { mapGetters } from 'vuex';
 import Message from './Message'
+import { events } from '../../../bus'
 
 export default {
     name: 'MessagesList',
@@ -44,12 +45,30 @@ export default {
         MessageInput,
         MessageHeader,
     },
+    data () {
+        return {
+            message: ''
+        }
+    },
     computed: {
         ...mapGetters(['currentChat', 'showMessageList', 'oneListDashboard']),
         messages() {
             return this.currentChat.data.relationships.messages
         },
     },
+    methods: {
+        setMessage (message) {
+            this.message = message
+        },
+        sendMessage () {
+            this.$store.dispatch('newMessage', {
+                chat_id : this.currentChat.data.id,
+                message : this.message
+            })
+
+            events.$emit('message-input:clear')
+        }
+    }
 }
 </script>
 

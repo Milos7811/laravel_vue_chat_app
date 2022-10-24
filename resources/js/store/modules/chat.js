@@ -56,6 +56,17 @@ const actions = {
             })
     },
 
+    newMessage : ({commit}, data) => {
+        axios.
+            post('api/chat/new-message', {chat_id: data.chat_id, message: data.message})
+                .then((response) => {
+                    commit('PUSH_NEW_MESSAGE', response.data)
+
+
+                    commit('PUSH_CHAT_TO_TOP', this.currentChat.data.id)
+                })
+    },
+
     updateLastReaded : ({commit}, id) => {
         axios.
             post(`/api/chat/${id}/last-readed`)

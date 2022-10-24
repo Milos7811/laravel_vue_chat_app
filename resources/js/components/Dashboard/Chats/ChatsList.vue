@@ -38,9 +38,9 @@
         <div class="bg-light-second my-2">
             <div class="flex flex-row w-full p-2">
                 <SearchBar/>
-                <!-- <div class="flex justify-center items-center mx-3">
+                <div class="flex justify-center items-center mx-3">
                     <UsersIcon @click="groupChat" title="test" class=" cursor-pointer hover:stroke-theme-second"/>
-                </div> -->
+                </div>
             </div>
         </div>
 
