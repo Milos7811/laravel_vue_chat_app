@@ -1,4 +1,4 @@
-<h1 align="center" > [Laravel Vue Chat](https://vuechat.eu/) </h1>
+<h1 align="center" > Laravel Vue Chat </h1>
 
 <p> Little live chat application with friendships. </p>
 
